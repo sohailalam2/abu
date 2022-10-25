@@ -84,25 +84,25 @@ console.log(TestValueObject.from(data));
       }
 
       // Utility helper methods
-      import { toKebabCase, hasValue } from './dist';
+      import { toKebabCase, hasValue } from '@sohailalam2/abu';
 
       print(`toKebabCase('${data}')`);
       print(`hasValue('${data}')`);
 
       // DateTime
-      import { DateTime } from './dist';
+      import { DateTime } from '@sohailalam2/abu';
 
       print(`DateTime.now().toISOString()`);
       print(`DateTime.now().toRFC2822()`);
 
       // Hashing & Encoding Example
-      import { HexToBytes, SHA256Hash } from './dist';
+      import { HexToBytes, SHA256Hash } from '@sohailalam2/abu';
 
       print(`new HexToBytes().convert('FF')`);
       print(`new SHA256Hash().hash('${data}')`);
 
       // ValueObject
-      import { ValueObject } from './dist';
+      import { ValueObject } from '@sohailalam2/abu';
 
       class TextValueObject extends ValueObject {}
 
