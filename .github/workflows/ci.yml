@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  # Vitest auto retry on flaky segfault
+  VITEST_SEGFAULT_RETRY: 3
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Set node
+        uses: actions/setup-node@master
+        with:
+          node-version: 16.x
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+  typecheck:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Set node
+        uses: actions/setup-node@master
+        with:
+          node-version: 16.x
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Audit Vulnerabilities
+        run: npx audit-ci --high
+
+  build:
+    timeout-minutes: 10
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [14, 16]
+        include:
+          - os: macos-latest
+            node_version: 16
+          - os: windows-latest
+            node_version: 16
+      fail-fast: false
+
+    name: "Build&Test: node-${{ matrix.node_version }}, ${{ matrix.os }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Set node version to ${{ matrix.node_version }}
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node_version }}
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Test Coverage
+        run: npm run test:cov
+        env:
+          CI: true

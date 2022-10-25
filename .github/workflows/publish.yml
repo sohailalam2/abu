@@ -1,0 +1,66 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    # prevents this action from running on forks
+    if: github.repository == 'sohailalam2/abu'
+    runs-on: ubuntu-latest
+    environment: Release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Build Docs
+        run: npm run docs:build
+
+      - name: Set node version to 16.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 16.x
+          registry-url: https://npm.pkg.github.com/
+          scope: "@sohailalam2"
+          cache: "npm"
+
+      # ----------------------------------
+      # Publish to GitHub Package Registry
+      # ----------------------------------
+      - name: Publish
+        run: npm publish
+        env:
+          CI: true
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------
+      # Publish to NPMJS Registry
+      # -------------------------
+      - name: Publish to NPMJS
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          npm config set scope "@sohailalam2"
+          npm config list
+          npm publish --access public
+        env:
+          CI: true
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      # -------------------------------------
+      # Publish documentation to Github Pages
+      # -------------------------------------
+      - name: Deploy Docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist/docs

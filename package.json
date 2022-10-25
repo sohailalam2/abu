@@ -1,0 +1,83 @@
+{
+  "name": "@sohailalam2/abu",
+  "description": "Your minimalistic helpful sidekick for all typescript projects :)",
+  "version": "0.1.0",
+  "type": "module",
+  "private": false,
+  "main": "./dist/@sohailalam2/abu/index.js",
+  "keywords": [
+    "datetime",
+    "hash",
+    "sha256",
+    "value object"
+  ],
+  "author": {
+    "name": "Sohail Alam",
+    "url": "https://sohailalam.in"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:cov": "vitest run --coverage",
+    "lint": "eslint --cache --ext .ts,js --ignore-path .gitignore .",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write --cache .",
+    "prepare": "husky install",
+    "typecheck": "tsc --noEmit",
+    "prerelease": "npm run lint && npm run test && npm run build",
+    "release": "standard-version"
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "homepage": "https://sohailalam2.github.io/abu/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sohailalam2/abu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sohailalam2/abu/issues"
+  },
+  "lint-staged": {
+    "*.{ts,js}": "eslint --ignore-path .gitignore --fix",
+    "*": "prettier -w -u"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint --edit \"$1\"",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "luxon": "^3.0.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@types/luxon": "^3.0.2",
+    "@types/node": "^18.11.4",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "@vitest/coverage-istanbul": "^0.24.3",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-security": "^1.5.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "standard-version": "^9.5.0",
+    "taze": "^0.8.3",
+    "typescript": "^4.8.4",
+    "vite": "^3.2.0-beta.0",
+    "vitepress": "^1.0.0-alpha.22",
+    "vitest": "^0.24.3"
+  }
+}
