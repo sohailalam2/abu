@@ -1,8 +1,8 @@
-import { defineConfig, loadEnv } from 'vite';
 import { join, resolve } from 'path';
+import { readdirSync } from 'fs';
+import { defineConfig, loadEnv } from 'vite';
 
 import pkg from './package.json';
-import { readdirSync } from 'fs';
 
 // eslint-disable-next-line no-magic-numbers
 const name = pkg.name.split('/')[1];

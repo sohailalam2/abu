@@ -4,18 +4,11 @@ import { debug, Class, Exception, ValueObjectType } from '@/utils';
 // Value Object
 // -----------------------------------------------------------------------------
 export abstract class ValueObject<T extends ValueObjectType = string> {
-  readonly #value: T;
-
   // NOTE:
   // Constructor is made public due to type constraints limitations
   // DO NOT instantiate the object directly, use the factory method(s) instead
-  constructor(value: T) {
-    this.#value = value;
+  constructor(private readonly value: T) {
     this.validate();
-  }
-
-  get value(): T {
-    return this.#value;
   }
 
   /**
