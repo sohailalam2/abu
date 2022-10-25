@@ -12,7 +12,7 @@ United States National Security Agency (NSA).
 The default output of the hash function is in lowercase hexadecimal (Hex)
 
 ```ts
-const hash = hashFunction.hash('Hello World!');
+const hash = new SHA256Hash().hash('Hello World!');
 
 const expectedHash = '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069';
 
@@ -23,7 +23,7 @@ The output encoding of the hash function can be changed to bytes by passing an e
 The output will then be formatted to an `Uint8Array`.
 
 ```ts
-const hash = hashFunction.hash('Hello World!', { encoding: 'bin' });
+const hash = new SHA256Hash().hash('Hello World!', { encoding: 'bin' });
 
 const expectedHash = '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069';
 const expectedBytes = new HexToBytes().convert(expectedHash);

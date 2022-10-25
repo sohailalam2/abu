@@ -14,7 +14,7 @@ export default defineConfig({
   description: 'Your helpful sidekick for all typescript projects :)',
   appearance: true,
   ignoreDeadLinks: true,
-  lastUpdated: true,
+  lastUpdated: false,
   base,
   srcDir,
   outDir,

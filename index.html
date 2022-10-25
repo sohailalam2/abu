@@ -7,6 +7,46 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/index.ts"></script>
+    <script type="module">
+      const app = document.getElementById('app');
+      const data = 'Hello World!';
+
+      // just a helper function to print some values on the DOM
+      function print(fn) {
+        app.innerHTML += `<p style="color: #C21F39"> ${fn}</br> </p>`;
+        app.innerHTML += `${eval(fn)}</br>`;
+        app.innerHTML += '<br /><hr />';
+      }
+
+      // Utility helper methods
+      import { toKebabCase, hasValue } from './dist';
+
+      print(`toKebabCase('${data}')`);
+      print(`hasValue('${data}')`);
+
+      // DateTime
+      import { DateTime } from './dist';
+
+      print(`DateTime.now().toISOString()`);
+      print(`DateTime.now().toRFC2822()`);
+
+      // Hashing & Encoding Example
+      import { HexToBytes, SHA256Hash } from './dist';
+
+      print(`new HexToBytes().convert('FF')`);
+      print(`new SHA256Hash().hash('${data}')`);
+
+      // ValueObject
+      import { ValueObject } from './dist';
+
+      class TextValueObject extends ValueObject {}
+
+      print(`TextValueObject.from('${data}')`);
+
+      // note as javascript does not support generics yet, we can simply use the default behavior
+      class NumberValueObject extends ValueObject {}
+
+      print(`NumberValueObject.from(123)`);
+    </script>
   </body>
 </html>

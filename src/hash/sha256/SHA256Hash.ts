@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import { InvalidPayloadProvidedToHashFunctionException, HashFunction, HashFunctionConfig } from '@/hash';
-import { hasValue } from '@/utils';
+import { InvalidPayloadProvidedToHashFunctionException, HashFunction, HashFunctionConfig } from '@/hash/HashFunction';
+import { hasValue } from '@/utils/helper';
 
 // first 32 bits of the fractional parts of the cube roots of the first 64 primes 2..311
 const K = [

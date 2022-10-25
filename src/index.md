@@ -15,25 +15,104 @@ $ npm install @sohailalam2/abu
 
 ## 📢 Features
 
-### DateTime
+### Abu 🐒 is smart and shakes trees!
 
-- [DateTime](./date-time/)
+It supports **tree-shaking** so your build process will only import what you need.
+So even if Abu get fat, you can stay slim 😆 _(just a joke, no disrespect)_
 
-### Hash
+The below code snippet will only import the `ValueObject` class and its internal dependencies (if any).
 
-- [HashFunction](./hash/)
-  - [SHA256Hash](./hash/sha256/)
+```ts
+import { ValueObject } from '@sohailalam2/abu';
+```
 
-### Transformers
+### Abu 🐵 is universal!
 
-- [TransformerFunction](./transformer/)
-  - [Uint8ArrayToString](./transformer/bytes-to-string/)
-  - [HexToBytes](./transformer/bytes-to-string/)
+It works equally well on modern browsers as well as in the backend (NodeJs).
 
-### Utils
+#### 📟 Backend Examples
 
-- [Utils](./utils/)
+```ts
+const data = 'Hello World!';
 
-### Value Object
+// Utility helper methods
+import { toKebabCase, hasValue } from '@sohailalam2/abu';
 
-- [ValueObject](./value-object/)
+console.log(toKebabCase(data));
+console.log(hasValue(data));
+
+// DateTime
+import { DateTime } from '@sohailalam2/abu';
+
+console.log(DateTime.now().toRFC2822());
+
+// Hashing & Encoding Example
+import { HexToBytes, SHA256Hash } from '@sohailalam2/abu';
+
+console.log(new HexToBytes().convert('FF'));
+console.log(new SHA256Hash().hash(data));
+
+// ValueObject
+import { ValueObject } from '@sohailalam2/abu';
+
+class TestValueObject extends ValueObject {}
+
+console.log(TestValueObject.from(data));
+```
+
+#### 🌏 Frontend Examples
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abu</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      const app = document.getElementById('app');
+      const data = 'Hello World!';
+
+      // just a helper function to print some values on the DOM
+      function print(fn) {
+        app.innerHTML += `<p style="color: #C21F39"> ${fn}</br> </p>`;
+        app.innerHTML += `${eval(fn)}</br>`;
+        app.innerHTML += '<br /><hr />';
+      }
+
+      // Utility helper methods
+      import { toKebabCase, hasValue } from './dist';
+
+      print(`toKebabCase('${data}')`);
+      print(`hasValue('${data}')`);
+
+      // DateTime
+      import { DateTime } from './dist';
+
+      print(`DateTime.now().toISOString()`);
+      print(`DateTime.now().toRFC2822()`);
+
+      // Hashing & Encoding Example
+      import { HexToBytes, SHA256Hash } from './dist';
+
+      print(`new HexToBytes().convert('FF')`);
+      print(`new SHA256Hash().hash('${data}')`);
+
+      // ValueObject
+      import { ValueObject } from './dist';
+
+      class TextValueObject extends ValueObject {}
+
+      print(`TextValueObject.from('${data}')`);
+
+      // note as javascript does not support generics yet, we can simply use the default behavior
+      class NumberValueObject extends ValueObject {}
+
+      print(`NumberValueObject.from(123)`);
+    </script>
+  </body>
+</html>
+```

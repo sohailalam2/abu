@@ -1,5 +1,5 @@
 import { DateTime as Luxon } from 'luxon';
-import { Exception } from '@/utils';
+import { Exception } from '@/utils/Exception';
 
 export interface Duration {
   years?: number;
