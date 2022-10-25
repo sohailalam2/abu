@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/sohailalam2/abu/compare/v0.1.4...v0.1.5) (2022-10-25)
+
+
+### Bug Fixes
+
+* package publish ([cc1c332](https://github.com/sohailalam2/abu/commit/cc1c3320cbbfa50c6e2865aa16a308a7d75044fc))
+
 ### [0.1.4](https://github.com/sohailalam2/abu/compare/v0.1.3...v0.1.4) (2022-10-25)
 
 
