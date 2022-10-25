@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/sohailalam2/abu/compare/v0.1.6...v0.1.7) (2022-10-25)
+
+### Bug Fixes
+
+- **build:** package type and env vars ([948120f](https://github.com/sohailalam2/abu/commit/948120fbeb23841ea145c7c28122f00ef29f730a))
+
 ### [0.1.6](https://github.com/sohailalam2/abu/compare/v0.1.5...v0.1.6) (2022-10-25)
 
 ### Bug Fixes
