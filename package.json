@@ -4,7 +4,6 @@
   "version": "0.1.4",
   "type": "module",
   "private": false,
-  "main": "./dist/@sohailalam2/abu/index.js",
   "keywords": [
     "datetime",
     "hash",
@@ -34,6 +33,13 @@
   },
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
+  },
+  "main": "./dist/@sohailalam2/abu/index.cjs.js",
+  "exports": {
+    ".": {
+      "import": "./dist/abu/index.es.js",
+      "require": "./dist/abu/index.cjs.js"
+    }
   },
   "homepage": "https://sohailalam2.github.io/abu/",
   "repository": {
