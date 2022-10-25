@@ -29,7 +29,7 @@
     "format": "prettier --write --cache .",
     "prepare": "husky install",
     "typecheck": "tsc --noEmit",
-    "prerelease": "npm run lint && npm run test && npm run build",
+    "prerelease": "npm run lint && npm run test:cov && npm run build",
     "release": "standard-version"
   },
   "engines": {
