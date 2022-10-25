@@ -12,14 +12,31 @@ const isProduction = NODE_ENV === 'production';
 const entryMap = readdirSync(join(__dirname, 'src'))
   .filter(dir => !dir.includes('.'))
   .concat([name])
-  .map(dir => ({ [dir]: resolve(__dirname, dir === name ? 'src/index.ts' : `src/${dir}/index.ts`) }))
+  .map(dir => {
+    if (dir === name) {
+      return { '': 'src/index.ts' };
+    }
+
+    return { [dir]: resolve(__dirname, `src/${dir}/index.ts`) };
+  })
   .reduce((acc, obj) => Object.assign(acc, obj), {});
+
+function getFileName(fmt, n) {
+  const extension = fmt === 'cjs' ? 'cjs' : 'js';
+
+  if (n.length) {
+    return `${n}/index.${extension}`;
+  }
+
+  return `index.${extension}`;
+}
 
 export default defineConfig({
   build: {
     lib: {
       entry: entryMap,
-      fileName: (fmt, n) => `${n}/index.${fmt}.js`,
+      fileName: getFileName,
+      name,
       formats: ['es', 'cjs'],
     },
     sourcemap: !isProduction,
