@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const { NODE_ENV } = process.env;
+
+// eslint-disable-next-line no-underscore-dangle
+declare const __ENVIRONMENT__: string;
 
 /* istanbul ignore next */
 export function debug(message?: any, ...optionalParams: any[]): void {
-  if (NODE_ENV !== 'production') {
+  if (__ENVIRONMENT__ !== 'production') {
     // eslint-disable-next-line no-console
     console.log(message, ...optionalParams);
   }

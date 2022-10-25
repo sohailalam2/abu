@@ -38,32 +38,32 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
     "./date-time": {
-      "import": "./dist/date-time/index.js",
-      "require": "./dist/date-time/index.cjs"
+      "import": "./dist/date-time/index.mjs",
+      "require": "./dist/date-time/index.js"
     },
     "./hash": {
-      "import": "./dist/hash/index.js",
-      "require": "./dist/hash/index.cjs"
+      "import": "./dist/hash/index.mjs",
+      "require": "./dist/hash/index.js"
     },
     "./transformer": {
-      "import": "./dist/transformer/index.js",
-      "require": "./dist/transformer/index.cjs"
+      "import": "./dist/transformer/index.mjs",
+      "require": "./dist/transformer/index.js"
     },
     "./utils": {
-      "import": "./dist/utils/index.js",
-      "require": "./dist/utils/index.cjs"
+      "import": "./dist/utils/index.mjs",
+      "require": "./dist/utils/index.js"
     },
     "./value-object": {
-      "import": "./dist/value-object/index.js",
-      "require": "./dist/value-object/index.cjs"
+      "import": "./dist/value-object/index.mjs",
+      "require": "./dist/value-object/index.js"
     }
   },
   "homepage": "https://sohailalam2.github.io/abu/",
