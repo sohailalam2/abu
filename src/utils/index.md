@@ -47,16 +47,16 @@ function serialize<T>(value: T): string {
 }
 ```
 
-| Data Type | Input Example     | Serialized Output Example |
-| :-------: | :---------------- | :------------------------ |
-| undefined | undefined         | "undefined"               |
-|   null    | null              | "null"                    |
-|  string   | "Hello World"     | "Hello World"             |
-|  boolean  | true              | "true"                    |
-|  number   | 123               | "123"                     |
-|  bigint   | 123n              | "123"                     |
-|  symbol   | Symbol.for('ABC') | "Symbol(ABC)"             |
-|  object   | {a: 10}           | "{\"a\":10}"              |
+| Data Type | Input Example       | Serialized Output Example |
+| :-------: | :------------------ | :------------------------ |
+| undefined | `undefined`         | `"undefined"`             |
+|   null    | `null`              | `"null"`                  |
+|  string   | `"Hello World"`     | `"Hello World"`           |
+|  boolean  | `true`              | `"true"`                  |
+|  number   | `123`               | `"123"`                   |
+|  bigint   | `123n`              | `"123"`                   |
+|  symbol   | `Symbol.for('ABC')` | `"Symbol(ABC)"`           |
+|  object   | `{ a: 10 }`         | `"{\"a\":10}"`            |
 
 ### deserialize
 
@@ -73,13 +73,13 @@ function deserialize<T>(value: string): T {
 
 The order of deserialization is as follows
 
-| Data Type | Input Example            | Deserialized Output Example |
-| :-------: | :----------------------- | :-------------------------- |
-| undefined | "undefined"              | undefined                   |
-|   null    | "null"                   | null                        |
-|  boolean  | "true"                   | true                        |
-|  number   | "123"                    | 123                         |
-|  bigint   | "7809986417725377199277" | 7809986417725377199277n     |
-|  symbol   | "Symbol(ABC)"            | === Symbol.for('ABC')       |
-|  object   | "{\"a\":10}"             | {a: 10}                     |
-|  string   | "Hello World"            | "Hello World"               |
+| Data Type | Input Example              | Deserialized Output Example |
+| :-------: | :------------------------- | :-------------------------- |
+| undefined | `"undefined"`              | `undefined`                 |
+|   null    | `"null"`                   | `null`                      |
+|  boolean  | `"true"`                   | `true`                      |
+|  number   | `"123"`                    | `123`                       |
+|  bigint   | `"7809986417725377199277"` | `7809986417725377199277n`   |
+|  symbol   | `"Symbol(ABC)"`            | `Symbol.for('ABC')`         |
+|  object   | `"{\"a\":10}"`             | `{ a: 10 }`                 |
+|  string   | `"Hello World"`            | `Hello World`               |
