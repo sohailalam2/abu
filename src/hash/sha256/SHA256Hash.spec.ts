@@ -28,12 +28,7 @@ This test is to ensure that strings like these can also be hashed and that the h
   });
 
   it('should throw exception while hashing empty string', () => {
-    try {
-      hashFunction.hash('');
-    } catch (e) {
-      expect(e).toBeDefined();
-      expect(e).toBeInstanceOf(InvalidPayloadProvidedToHashFunctionException);
-    }
+    expect(() => hashFunction.hash('')).toThrow(InvalidPayloadProvidedToHashFunctionException);
   });
 
   it('should hash a given text correctly and produce hex encoded hash', () => {

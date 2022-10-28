@@ -1,15 +1,16 @@
-import { debug } from '@/utils/helper';
-import { Exception } from '@/utils/Exception';
+import { Exception } from '@/data/Exception';
+import { Serializable } from '@/data/Serializable';
 import { Class, ValueObjectType } from '@/utils/types';
+import { debug, deserialize, serialize } from '@/utils/helper';
 
 // -----------------------------------------------------------------------------
 // Value Object
 // -----------------------------------------------------------------------------
-export abstract class ValueObject<T extends ValueObjectType = string> {
+export abstract class ValueObject<T extends ValueObjectType = string> implements Serializable<T> {
   // NOTE:
   // Constructor is made public due to type constraints limitations
   // DO NOT instantiate the object directly, use the factory method(s) instead
-  constructor(private readonly value: T) {
+  public constructor(private readonly value: T) {
     this.validate();
   }
 
@@ -55,33 +56,21 @@ export abstract class ValueObject<T extends ValueObjectType = string> {
   }
 
   public toString(): string {
-    return String(this.value);
+    return serialize(this.value);
+  }
+
+  public valueOf(): T {
+    return deserialize<T>(this.toString());
   }
 }
 
 // -----------------------------------------------------------------------------
 // Value Object Exception Definitions
 // -----------------------------------------------------------------------------
-export class ValueObjectCanNotBeNullException<T> extends Exception<T> {
-  constructor(value: T) {
-    super(value);
-  }
-}
+export class ValueObjectCanNotBeNullException extends Exception {}
 
-export class ValueObjectCanNotBeEmptyException<T> extends Exception<T> {
-  constructor(value: T) {
-    super(value);
-  }
-}
+export class ValueObjectCanNotBeEmptyException extends Exception {}
 
-export class ValueObjectIsInfiniteException<T> extends Exception<T> {
-  constructor(value: T) {
-    super(value);
-  }
-}
+export class ValueObjectIsInfiniteException extends Exception {}
 
-export class ValueObjectIsNotANumberException<T> extends Exception<T> {
-  constructor(value: T) {
-    super(value);
-  }
-}
+export class ValueObjectIsNotANumberException extends Exception {}

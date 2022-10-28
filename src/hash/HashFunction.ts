@@ -1,4 +1,4 @@
-import { Exception } from '@/utils/Exception';
+import { Exception } from '@/data/Exception';
 import { KeyType, NonNullPrimitive, ValueObjectType } from '@/utils/types';
 
 export interface HashFunctionConfig {

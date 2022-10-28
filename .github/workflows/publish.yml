@@ -2,7 +2,7 @@ name: Publish Package
 
 on:
   release:
-    types: [ published ]
+    types: [published]
   push:
     tags:
       - "v*"
@@ -44,25 +44,25 @@ jobs:
           CI: true
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      # -------------------------
-#      # Publish to NPMJS Registry
-#      # -------------------------
-#      - name: Setup for publishing to NPM Registry
-#        uses: actions/setup-node@master
-#        with:
-#          node-version: 16.x
-#          registry-url: 'https://registry.npmjs.org/'
-#          scope: "@sohailalam2"
-#          cache: "npm"
-#      - name: Publish to NPMJS
-#        run: |
-#          npm config set //registry.npmjs.org/:_authToken=NODE_AUTH_TOKEN
-#          npm config set scope "@sohailalam2"
-#          npm config list
-#          npm publish --access public
-#        env:
-#          CI: true
-#          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #      # -------------------------
+      #      # Publish to NPMJS Registry
+      #      # -------------------------
+      #      - name: Setup for publishing to NPM Registry
+      #        uses: actions/setup-node@master
+      #        with:
+      #          node-version: 16.x
+      #          registry-url: 'https://registry.npmjs.org/'
+      #          scope: "@sohailalam2"
+      #          cache: "npm"
+      #      - name: Publish to NPMJS
+      #        run: |
+      #          npm config set //registry.npmjs.org/:_authToken=NODE_AUTH_TOKEN
+      #          npm config set scope "@sohailalam2"
+      #          npm config list
+      #          npm publish --access public
+      #        env:
+      #          CI: true
+      #          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # -------------------------------------
       # Publish documentation to Github Pages
