@@ -15,6 +15,10 @@ abstract class Exception<T = string> extends Error {
 ### Usage
 
 ```ts
+// a simple exception class with string data type
+export class ValueObjectCanNotBeNullException extends Exception {}
+
+// an exception class with a dynamic T type
 class ValueObjectCanNotBeEmptyException<T> extends Exception<T> {
   constructor(value: T) {
     super(value);
