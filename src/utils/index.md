@@ -1,10 +1,6 @@
 # Utilities
 
-## Helper Functions
-
-These are some useful functions
-
-### debug
+## debug()
 
 This will print console logs in non-production environments
 
@@ -14,7 +10,7 @@ function debug(message?: any, ...optionalParams: any[]): void {
 }
 ```
 
-### kebab-case
+## toKebabCase()
 
 This will convert a given string to kebab-case
 
@@ -24,7 +20,14 @@ function toKebabCase(value: string): string {
 }
 ```
 
-### hasValue
+| Input Example | kebab-case Output Example |
+| :------------ | :------------------------ |
+| `camelCase`   | `camel-case`              |
+| `TitleCase`   | `title-case`              |
+| `snake_case`  | `snake-case`              |
+| `Hello World` | `hello-world`             |
+
+## hasValue()
 
 This checks for null, undefined and empty string... return false for any of these
 
@@ -34,7 +37,7 @@ function hasValue(value: any): boolean {
 }
 ```
 
-### serialize
+## serialize()
 
 This helper function can be used to serialize any data to string type. It will try its best to
 identify the datatype and produce the appropriate string serialization.
@@ -58,7 +61,7 @@ function serialize<T>(value: T): string {
 |  symbol   | `Symbol.for('ABC')` | `"Symbol(ABC)"`           |
 |  object   | `{ a: 10 }`         | `"{\"a\":10}"`            |
 
-### deserialize
+## deserialize()
 
 This helper function can be used to deserialize any string to an appropriate type. It will try its best to
 identify the datatype and produce the appropriate deserialization for it.
