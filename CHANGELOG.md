@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/sohailalam2/abu/compare/v0.1.12...v0.1.13) (2022-10-28)
+
+### Bug Fixes
+
+- export data module ([eb66ba1](https://github.com/sohailalam2/abu/commit/eb66ba1c233e4a43c2705c172d1b706c3cd5b599))
+
 ### [0.1.12](https://github.com/sohailalam2/abu/compare/v0.1.11...v0.1.12) (2022-10-28)
 
 ### Bug Fixes
