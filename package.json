@@ -1,7 +1,7 @@
 {
   "name": "@sohailalam2/abu",
   "description": "Your minimalistic helpful sidekick for all typescript projects :)",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "type": "module",
   "private": false,
   "keywords": [
