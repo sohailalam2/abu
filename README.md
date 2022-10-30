@@ -9,11 +9,12 @@
   <div align="center">
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a453e2a7696b7607220d/maintainability)](https://codeclimate.com/github/sohailalam2/abu/maintainability)
-[![npm](https://badgen.net/npm/v/@sohailalam2/abu?icon=npm)](https://www.npmjs.com/package/@sohailalam2/abu)
 [![github actions](https://github.com/sohailalam2/abu/workflows/CI/badge.svg?branch=master)](https://github.com/sohailalam2/abu/actions)
-[![gzip size](https://badgen.net/badgesize/gzip/https://cdn.jsdelivr.net/npm/@sohailalam2/abu/dist/index.js)](https://cdn.jsdelivr.net/npm/@sohailalam2/abu/dist/index.js)
-[![install size](https://badgen.net/packagephobia/install/@sohailalam2/abu?icon=packagephobia)](https://packagephobia.now.sh/result?p=@sohailalam2/abu)
+[![npm](https://badgen.net/npm/v/@sohailalam2/abu?icon=npm)](https://www.npmjs.com/package/@sohailalam2/abu)
 [![snyk](https://snyk.io/test/npm/@sohailalam2/abu/badge.svg)](https://snyk.io/test/npm/@sohailalam2/abu)
+[![publish size](https://badgen.net/packagephobia/publish/@sohailalam2/abu?icon=packagephobia)](https://bundlephobia.com/package/@sohailalam2/abu)
+[![install size](https://badgen.net/packagephobia/install/@sohailalam2/abu?icon=packagephobia)](https://packagephobia.now.sh/result?p=@sohailalam2/abu)
+[![license](https://badgen.net/badge/license/MIT/blue)](https://github.com/sohailalam2/abu)
 
   </div>
 </section>
