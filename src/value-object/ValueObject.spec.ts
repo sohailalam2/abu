@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { beforeEach, describe, expect, it } from 'vitest';
+
 import {
+  ObjectCanNotBeConvertedToValueObject,
   ValueObject,
   ValueObjectCanNotBeEmptyException,
+  ValueObjectCanNotBeNullException,
   ValueObjectIsInfiniteException,
   ValueObjectIsNotANumberException,
-} from './ValueObject';
+} from './';
+
 import { Exception } from '@/data';
 
 describe('Exception class', () => {
@@ -78,6 +83,10 @@ describe('Exception class', () => {
   });
 
   it('value objects can run built in validations', () => {
+    // @ts-ignore
+    expect(() => MySimpleValueObject.from(undefined)).toThrow(ValueObjectCanNotBeNullException);
+    // @ts-ignore
+    expect(() => MySimpleValueObject.from(null)).toThrow(ValueObjectCanNotBeNullException);
     expect(() => MySimpleValueObject.from('')).toThrow(ValueObjectCanNotBeEmptyException);
     expect(() => MyValueObjectWithNumber.from(Number('123ABC'))).toThrow(ValueObjectIsNotANumberException);
     expect(() => MyValueObjectWithNumber.from(Number.POSITIVE_INFINITY)).toThrow(ValueObjectIsInfiniteException);
@@ -86,4 +95,22 @@ describe('Exception class', () => {
   it('value objects can run custom validation', () => {
     expect(() => MyValueObjectWithValidation.from(VALUE_STRING)).toThrow(MyValueObjectWithValidationFailedException);
   });
+
+  it('can convert a deserialized object to a value object', () => {
+    const value = 'This is my value';
+
+    expect(MySimpleValueObject.fromObject({ value })).instanceof(MySimpleValueObject);
+    expect(MySimpleValueObject.fromObject({ value }).valueOf()).toEqual(value);
+  });
+
+  it('should fail to convert an object to value object if its a bad object', () => {
+    expect(() => MySimpleValueObject.fromObject({ invalid: true })).throws(ObjectCanNotBeConvertedToValueObject);
+  });
+
+  // FIXME: should fail to convert an object to value object if value type is a mismatch
+  // it('should fail to convert an object to value object if value type is a mismatch', () => {
+  //   expect(MySimpleValueObject.fromObject({ value: 1000 })).instanceof(MySimpleValueObject);
+  //   expect(MySimpleValueObject.fromObject({ value: 1000 }).valueOf()).toEqual('1000');
+  //   // expect(() => MySimpleValueObject.fromObject({ value: 1000 })).throws(ObjectCanNotBeConvertedToValueObject);
+  // });
 });

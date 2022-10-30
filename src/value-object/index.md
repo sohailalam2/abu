@@ -82,3 +82,58 @@ const blogUrl = new BlogUrl('/');
 By default it is possible to use `new` keyword to create a new object, however,
 it is always a good idea to keep the constructor private and use the factory method to create objects
 :::
+
+## ValueObject.from()
+
+The ValueObject class exposes a static factory method `from<K>(value: ValueObjectType): K`
+that can be used to instantiate a new value object instance.
+
+```ts
+class MyValueObjectWithNumber extends ValueObject<number> {}
+
+const hundred = MyValueObjectWithNumber.from(100);
+```
+
+## ValueObject.fromObject()
+
+The ValueObject class exposes another static factory method `fromObject<K>(data: unknown): K`
+that can be used to instantiate a new value object instance.
+
+Now this is a special method that looks for a property named `value` inside the `data` object.
+If one exists, it will try to use that to create a value object.
+
+```ts
+class MySimpleValueObject extends ValueObject {}
+
+const myVal = MySimpleValueObject.fromObject({ value: 'This is my value' });
+
+// this works fine
+console.log(myVal.valueOf());
+```
+
+However, if the data can not be converted to a ValueObject then an `ObjectCanNotBeConvertedToValueObject` is thrown
+
+```ts
+class MySimpleValueObject extends ValueObject {}
+
+// throws ObjectCanNotBeConvertedToValueObject
+expect(() => MySimpleValueObject.fromObject({ invalid: true })).throws(ObjectCanNotBeConvertedToValueObject);
+```
+
+::: danger 👺 USE WITH EXTRA CAUTION!
+The `fromObject()` method can result in an inconsistent value object.
+
+It is not yet smart enough to determine the value type and hence can result in a type mismatch
+:::
+
+```ts
+class MySimpleValueObject extends ValueObject<string> {}
+
+// NOTE here we are passing a number but the value object expects a string
+const myValue = MySimpleValueObject.fromObject({ value: 1000 }); //‼️⁉️
+
+// myVal is successfully created
+
+// The following test fails
+expect(myValue.valueOf()).toEqual('1000'); // ❌ 👺
+```

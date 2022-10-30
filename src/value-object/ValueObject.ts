@@ -1,7 +1,14 @@
-import { Exception } from '@/data/Exception';
 import { Serializable } from '@/data/Serializable';
 import { Class, ValueObjectType } from '@/utils/types';
-import { debug, deserialize, serialize } from '@/utils/helper';
+import { debug, deserialize, deserializeValueObject, hasValue, serialize } from '@/utils/helper';
+
+import {
+  ObjectCanNotBeConvertedToValueObject,
+  ValueObjectCanNotBeEmptyException,
+  ValueObjectCanNotBeNullException,
+  ValueObjectIsInfiniteException,
+  ValueObjectIsNotANumberException,
+} from './types';
 
 // -----------------------------------------------------------------------------
 // Value Object
@@ -10,7 +17,7 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
   // NOTE:
   // Constructor is made public due to type constraints limitations
   // DO NOT instantiate the object directly, use the factory method(s) instead
-  public constructor(private readonly value: T) {
+  public constructor(public readonly value: T) {
     this.validate();
   }
 
@@ -21,6 +28,23 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
    */
   public static from<Type extends ValueObjectType = string, K = ValueObject<Type>>(this: Class<K>, value: Type): K {
     return new this(value);
+  }
+
+  public static fromObject<Type extends ValueObjectType = string, K = ValueObject<Type>>(
+    this: Class<K>,
+    data: unknown,
+  ): K {
+    if (hasValue(data)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const { value } = data;
+
+      if (hasValue(value)) {
+        return deserializeValueObject<Type, K>(JSON.stringify({ value }), this);
+      }
+    }
+
+    throw new ObjectCanNotBeConvertedToValueObject();
   }
 
   /**
@@ -63,14 +87,3 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
     return deserialize<T>(this.toString());
   }
 }
-
-// -----------------------------------------------------------------------------
-// Value Object Exception Definitions
-// -----------------------------------------------------------------------------
-export class ValueObjectCanNotBeNullException extends Exception {}
-
-export class ValueObjectCanNotBeEmptyException extends Exception {}
-
-export class ValueObjectIsInfiniteException extends Exception {}
-
-export class ValueObjectIsNotANumberException extends Exception {}

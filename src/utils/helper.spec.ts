@@ -1,6 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
-import { hasValue, toKebabCase, serialize, deserialize } from '@/utils/helper';
+import { hasValue, toKebabCase, serialize, deserialize, deserializeValueObject } from '@/utils/helper';
+import { ValueObject } from '@/value-object';
 
 describe('helper utility', () => {
   // toKebabCase()
@@ -36,16 +37,28 @@ describe('helper utility', () => {
       expect(hasValue(undefined)).toEqual(false);
     });
 
-    it('should return true for an object', () => {
-      expect(hasValue({})).toEqual(true);
+    it('should return false for a empty string', () => {
+      expect(hasValue('')).toEqual(false);
     });
 
     it('should return true for a non-empty string', () => {
       expect(hasValue('abc')).toEqual(true);
     });
 
-    it('should return false for a empty string', () => {
-      expect(hasValue('')).toEqual(false);
+    it('should return true for a number zero', () => {
+      expect(hasValue(0)).toEqual(true);
+    });
+
+    it('should return true for a boolean true', () => {
+      expect(hasValue(true)).toEqual(true);
+    });
+
+    it('should return true for a boolean false', () => {
+      expect(hasValue(false)).toEqual(true);
+    });
+
+    it('should return true for an empty object', () => {
+      expect(hasValue({})).toEqual(true);
     });
   });
 
@@ -115,6 +128,15 @@ describe('helper utility', () => {
       expect(typeof value).toEqual('string');
       expect(value).toEqual('{"hello":"world"}');
     });
+
+    it('can serialize a date object', () => {
+      const currentDate = new Date();
+      const value = serialize(currentDate);
+
+      expect(value).toBeDefined();
+      expect(typeof value).toEqual('string');
+      expect(value).toEqual(currentDate.toISOString());
+    });
   });
 
   // deserialize()
@@ -133,14 +155,6 @@ describe('helper utility', () => {
       expect(value).toBeNull();
       expect(typeof value).toEqual('object');
       expect(value).toEqual(null);
-    });
-
-    it('can deserialize a string value', () => {
-      const value = deserialize('Hello World!');
-
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('Hello World!');
     });
 
     it('can deserialize a number value', () => {
@@ -183,6 +197,81 @@ describe('helper utility', () => {
       expect(value).toBeDefined();
       expect(typeof value).toEqual('object');
       expect(value).toEqual({ hello: 'world' });
+    });
+
+    it('can deserialize a object date value', () => {
+      const date = new Date();
+      const value = deserialize<Date>(JSON.stringify(date));
+
+      expect(value).toBeDefined();
+      expect(typeof value).toEqual('object');
+      expect(value.toUTCString()).toEqual(date.toUTCString());
+    });
+
+    it('can deserialize a value object to an instance', () => {
+      class MyValue extends ValueObject<boolean> {}
+
+      const data = JSON.stringify(MyValue.from(true));
+
+      const value = deserializeValueObject<boolean, MyValue>(data, MyValue);
+
+      expect(value).toBeDefined();
+      expect(typeof value).toEqual('object');
+      expect(value).instanceof(MyValue);
+      expect(value.valueOf()).toEqual(true);
+    });
+
+    // FIXME: can deserialize a value object with correct data type to an instance
+    // it('can deserialize a value object with correct data type to an instance', () => {
+    //   class MyDateValue extends ValueObject<Date> {}
+    //   class MyStringValue extends ValueObject {}
+    //
+    //   const currentDate = new Date();
+    //   const data = JSON.stringify(MyDateValue.from<Date>(currentDate));
+    //   const value = deserializeValueObject<string, MyStringValue>(data, MyStringValue);
+    //
+    //   expect(value).toBeDefined();
+    //   expect(typeof value).toEqual('object');
+    //   expect(value).instanceof(MyStringValue);
+    //   expect(value.valueOf()).not.toEqual(currentDate);
+    //   expect(value.valueOf()).toEqual(currentDate.toISOString());
+    // });
+
+    it('can deserialize a complex object with nested value objects', () => {
+      class MyValue extends ValueObject {}
+      interface ComplexValue {
+        myVal: MyValue;
+        anotherVal: MyValue;
+      }
+
+      const data: ComplexValue = {
+        myVal: MyValue.from('This is my value'),
+        anotherVal: MyValue.from('This is another value'),
+      };
+
+      const value = deserialize<ComplexValue>(JSON.stringify(data));
+
+      expect(value).toBeDefined();
+      expect(typeof value).toEqual('object');
+      expect(MyValue.fromObject(value.myVal).valueOf()).toEqual(data.myVal.value);
+      expect(MyValue.fromObject(value.anotherVal).valueOf()).toEqual(data.anotherVal.value);
+    });
+
+    it('can deserialize a string value', () => {
+      const value = deserialize('Hello World!');
+
+      expect(value).toBeDefined();
+      expect(typeof value).toEqual('string');
+      expect(value).toEqual('Hello World!');
+    });
+
+    it('can deserialize a string date value', () => {
+      const date = new Date();
+      const value = deserialize<Date>(date.toISOString());
+
+      expect(value).toBeDefined();
+      expect(typeof value).toEqual('object');
+      expect(value.toUTCString()).toEqual(date.toUTCString());
     });
   });
 });

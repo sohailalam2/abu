@@ -1,5 +1,17 @@
 # Data
 
+## Serializable Interface
+
+This interface exposes two method declaration that any class can implement to provide serialization and deserialization support
+
+```ts
+interface Serializable<T> {
+  toString(): string;
+
+  valueOf(): T;
+}
+```
+
 ## Exception Class
 
 This is an abstract class that can be used to create some quick and simple exceptions with some default message structure.
@@ -7,8 +19,14 @@ This is an abstract class that can be used to create some quick and simple excep
 ### Class Signature
 
 ```ts
-abstract class Exception<T = string> extends Error {
-  //
+abstract class Exception<T = string> extends Error implements Serializable<T> {
+  public valueOf(): T {
+    // ...
+  }
+
+  public toString(): string {
+    // ...
+  }
 }
 ```
 

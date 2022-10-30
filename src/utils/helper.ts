@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Class, ValueObjectType } from '@/utils/types';
+import { ValueObject } from '@/value-object';
 
 // eslint-disable-next-line no-underscore-dangle
 declare const __ENVIRONMENT__: string;
@@ -38,7 +40,14 @@ export function serialize<T>(value: T): string {
     case 'symbol':
       return value.toString();
     case 'object':
-      return value === null ? 'null' : JSON.stringify(value);
+      if (value === null) {
+        return 'null';
+      }
+      if (value instanceof Date) {
+        return value.toISOString();
+      }
+
+      return JSON.stringify(value);
     default:
       return 'undefined';
   }
@@ -83,11 +92,44 @@ export function deserialize<T>(value: string): T {
 
   // --------- Object
   try {
-    return JSON.parse(value) as T;
+    const parsedJson = JSON.parse(value);
+
+    // try parsing object as date
+    try {
+      const date = new Date(parsedJson);
+
+      date.toISOString();
+
+      return date as T;
+    } catch (e) {
+      // ignore
+    }
+
+    return parsedJson as T;
   } catch (e) {
     // ignore
   }
 
   // --------- string
+  // try parsing string as date
+  try {
+    const date = new Date(value);
+
+    date.toISOString();
+
+    return date as T;
+  } catch (e) {
+    // ignore
+  }
+
   return String(value) as T;
+}
+
+export function deserializeValueObject<Type extends ValueObjectType = string, K = ValueObject<Type>>(
+  value: string,
+  Clazz: Class<K>,
+): K {
+  const parsedJson = JSON.parse(value);
+
+  return new Clazz(parsedJson.value as Type) as K;
 }
