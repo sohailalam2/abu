@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { TransformerFunction, Uint8ArrayToString } from '@/transformer';
+import { TransformerFunction, Uint8ArrayToString } from '@/transformers';
 import { HexToBytes } from './';
 
 describe('HexToBytes class', () => {

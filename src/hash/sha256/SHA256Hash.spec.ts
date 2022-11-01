@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { SHA256Hash, InvalidPayloadProvidedToHashFunctionException, HashFunction } from '@/hash';
-import { HexToBytes } from '@/transformer';
+import { HexToBytes } from '@/transformers';
 
 describe('SHA256Hash class', () => {
   let hashFunction: HashFunction<string, string | Uint8Array>;

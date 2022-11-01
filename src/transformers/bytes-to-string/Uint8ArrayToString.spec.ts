@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { TransformerFunction } from '@/transformer';
+import { TransformerFunction } from '@/transformers';
 import { Uint8ArrayToString } from './';
 
 describe('Uint8ArrayToString class', () => {

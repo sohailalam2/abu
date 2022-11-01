@@ -1,10 +1,10 @@
+/* eslint-disable no-magic-numbers, camelcase */
 import { join, resolve } from 'path';
 import { readdirSync } from 'fs';
 import { defineConfig, loadEnv } from 'vite';
 
 import pkg from './package.json';
 
-// eslint-disable-next-line no-magic-numbers
 const name = pkg.name.split('/')[1];
 
 const entryMap = readdirSync(join(__dirname, 'src'))
@@ -42,14 +42,15 @@ export default defineConfig(({ mode }) => {
         formats: ['es', 'cjs'],
       },
       sourcemap: !isProduction,
+      minify: 'terser',
+      terserOptions: { keep_classnames: true },
     },
     define: {
       'import.meta.vitest': 'undefined',
       __LIB_NAME__: JSON.stringify(env.npm_package_name),
       __LIB_VERSION__: JSON.stringify(env.npm_package_version),
-      __ENVIRONMENT__: JSON.stringify(env.NODE_ENV),
     },
-    resolve: { alias: { '@': resolve(__dirname, 'src') } },
+    resolve: { alias: { '@': resolve(__dirname, 'src') }, mainFields: ['browser', 'module', 'jsnext:main', 'jsnext'] },
     server: { watch: { usePolling: true } },
     test: {
       coverage: {

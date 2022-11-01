@@ -2,39 +2,84 @@
 
 ## debug()
 
-This will print console logs in non-production environments
+Can be used to turn on/off console logging for debugging purposes
+
+::: tip Enable/Disable Logging
+Expose a global variable `__ABU_DEBUG__` with a truthy value to enable logs
+:::
 
 ```ts
-function debug(message?: any, ...optionalParams: any[]): void {
-  //
-}
+function debug(message?: any, ...optionalParams: any[]): void {}
 ```
+
+## toSnakeCase()
+
+This will convert a given string to **snake_case**
+
+```ts
+function toSnakeCase(value: string): string {}
+```
+
+| Input Example | snake_case Output Example |
+| :------------ | :------------------------ |
+| `nancyDrew`   | `nancy_drew`              |
+| `NancyDrew`   | `nancy_drew`              |
+| `nancy_drew`  | `nancy_drew`              |
+| `Nancy Drew`  | `nancy_drew`              |
+
+## toCamelCase()
+
+This will convert a given string to **camelCase**
+
+```ts
+function toCamelCase(value: string): string {}
+```
+
+| Input Example | camelCase Output Example |
+| :------------ | :----------------------- |
+| `nancyDrew`   | `nancyDrew`              |
+| `NancyDrew`   | `nancyDrew`              |
+| `nancy_drew`  | `nancyDrew`              |
+| `Nancy Drew`  | `nancyDrew`              |
+
+## toTitleCase() / toPascalCase()
+
+This will convert a given string to **TitleCase** or **PascalCase**
+
+```ts
+function toTitleCase(value: string): string {}
+
+function toPascalCase(value: string): string {}
+```
+
+| Input Example | TitleCase/PascalCase Output Example |
+| :------------ | :---------------------------------- |
+| `nancyDrew`   | `NancyDrew`                         |
+| `NancyDrew`   | `NancyDrew`                         |
+| `nancy_drew`  | `NancyDrew`                         |
+| `Nancy Drew`  | `NancyDrew`                         |
 
 ## toKebabCase()
 
-This will convert a given string to kebab-case
+This will convert a given string to **kebab-case**
 
 ```ts
-function toKebabCase(value: string): string {
-  //
-}
+function toKebabCase(value: string): string {}
 ```
 
 | Input Example | kebab-case Output Example |
 | :------------ | :------------------------ |
-| `camelCase`   | `camel-case`              |
-| `TitleCase`   | `title-case`              |
-| `snake_case`  | `snake-case`              |
-| `Hello World` | `hello-world`             |
+| `nancyDrew`   | `nancy-drew`              |
+| `NancyDrew`   | `nancy-drew`              |
+| `nancy_drew`  | `nancy-drew`              |
+| `Nancy Drew`  | `nancy-drew`              |
 
 ## hasValue()
 
 This checks for null, undefined and empty string... return false for any of these
 
 ```ts
-function hasValue(value: any): boolean {
-  //
-}
+function hasValue(value: any): boolean {}
 ```
 
 ## serialize()

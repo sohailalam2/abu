@@ -1,4 +1,4 @@
-import { TransformerFunction } from '@/transformer/TransformerFunction';
+import { TransformerFunction } from '@/transformers/TransformerFunction';
 
 const CHUNK_SZ = 0x8000;
 

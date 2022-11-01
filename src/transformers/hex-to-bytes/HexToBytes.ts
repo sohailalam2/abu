@@ -1,4 +1,4 @@
-import { TransformerFunction } from '@/transformer/TransformerFunction';
+import { TransformerFunction } from '@/transformers/TransformerFunction';
 
 const TWO = 2;
 

@@ -1,70 +1,11 @@
 {
-  "name": "@sohailalam2/abu",
-  "description": "Your minimalistic helpful sidekick for all typescript projects :)",
-  "version": "0.1.14",
-  "type": "module",
   "private": false,
-  "keywords": [
-    "datetime",
-    "hash",
-    "sha256",
-    "value object"
-  ],
+  "name": "@sohailalam2/abu",
+  "version": "0.1.14",
+  "description": "Your minimalistic helpful sidekick for all typescript projects :)",
   "author": {
     "name": "Sohail Alam",
     "url": "https://sohailalam.in"
-  },
-  "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "postbuild": "vue-tsc --emitDeclarationOnly",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:cov": "vitest run --coverage",
-    "lint": "eslint --cache --ext .ts,js --ignore-path .gitignore .",
-    "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --write --cache .",
-    "prepare": "husky install",
-    "typecheck": "tsc --noEmit",
-    "prerelease": "npm run lint && npm run test:cov && npm run build",
-    "release": "standard-version"
-  },
-  "engines": {
-    "node": "^14.18.0 || >=16.0.0"
-  },
-  "files": [
-    "dist"
-  ],
-  "module": "./dist/index.mjs",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./date-time": {
-      "import": "./dist/date-time/index.mjs",
-      "require": "./dist/date-time/index.js"
-    },
-    "./hash": {
-      "import": "./dist/hash/index.mjs",
-      "require": "./dist/hash/index.js"
-    },
-    "./transformer": {
-      "import": "./dist/transformer/index.mjs",
-      "require": "./dist/transformer/index.js"
-    },
-    "./utils": {
-      "import": "./dist/utils/index.mjs",
-      "require": "./dist/utils/index.js"
-    },
-    "./value-object": {
-      "import": "./dist/value-object/index.mjs",
-      "require": "./dist/value-object/index.js"
-    }
   },
   "homepage": "https://sohailalam2.github.io/abu/",
   "repository": {
@@ -74,18 +15,33 @@
   "bugs": {
     "url": "https://github.com/sohailalam2/abu/issues"
   },
-  "lint-staged": {
-    "*.{ts,js}": "eslint --ignore-path .gitignore --fix",
-    "*": "prettier -w -u"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint --edit \"$1\"",
-      "pre-commit": "lint-staged"
-    }
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "postbuild": "vue-tsc --emitDeclarationOnly",
+    "dev": "vite",
+    "docs:build": "vitepress build docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:serve": "vitepress serve docs",
+    "format": "prettier --write --cache .",
+    "lint": "eslint --cache --ext .ts,js --ignore-path .gitignore .",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install",
+    "prerelease": "npm run lint && npm run test:cov && npm run build",
+    "release": "standard-version",
+    "test": "vitest",
+    "test:cov": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "luxon": "^3.0.4"
+    "luxon": "^3.0.4",
+    "terser": "^5.15.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -111,5 +67,62 @@
     "vitepress": "^1.0.0-alpha.22",
     "vitest": "^0.24.3",
     "vue-tsc": "^1.0.9"
+  },
+  "keywords": [
+    "datetime",
+    "hash",
+    "sha256",
+    "value object"
+  ],
+  "engines": {
+    "node": ">=16.15.0"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./data": {
+      "import": "./dist/data/index.mjs",
+      "require": "./dist/data/index.js"
+    },
+    "./date-time": {
+      "import": "./dist/date-time/index.mjs",
+      "require": "./dist/date-time/index.js"
+    },
+    "./hash": {
+      "import": "./dist/hash/index.mjs",
+      "require": "./dist/hash/index.js"
+    },
+    "./id-generators": {
+      "import": "./dist/id-generators/index.mjs",
+      "require": "./dist/id-generators/index.js"
+    },
+    "./transformers": {
+      "import": "./dist/transformers/index.mjs",
+      "require": "./dist/transformers/index.js"
+    },
+    "./numbers": {
+      "import": "./dist/numbers/index.mjs",
+      "require": "./dist/numbers/index.js"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.mjs",
+      "require": "./dist/utils/index.js"
+    },
+    "./value-object": {
+      "import": "./dist/value-object/index.mjs",
+      "require": "./dist/value-object/index.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint --edit \"$1\"",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": "eslint --ignore-path .gitignore --fix",
+    "*": "prettier -w -u"
   }
 }

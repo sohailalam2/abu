@@ -8,45 +8,67 @@
   <body>
     <div id="app"></div>
     <script type="module">
+      import {
+        debug,
+        toSnakeCase,
+        toCamelCase,
+        toTitleCase,
+        toKebabCase,
+        hasValue,
+        DateTime,
+        HexToBytes,
+        SHA256Hash,
+        ValueObject,
+        randomBigInt,
+        randomInt,
+        randomHex,
+        randomId,
+        randomBaseN,
+        randomUUIDv4,
+      } from './dist';
+
       const app = document.getElementById('app');
       const data = 'Hello World!';
 
       // just a helper function to print some values on the DOM
       function print(fn) {
-        app.innerHTML += `<p style="color: #C21F39"> ${fn}</br> </p>`;
-        app.innerHTML += `${eval(fn)}</br>`;
-        app.innerHTML += '<br /><hr />';
+        const result = eval(fn);
+
+        debug(`${fn} => ${result}`);
+
+        app.innerHTML += `<p><span style="color: #C21F39">${fn}</span> => ${result}</p>`;
       }
 
       // Utility helper methods
-      import { toKebabCase, hasValue } from './dist';
-
+      print(`toSnakeCase('${data}')`);
+      print(`toCamelCase('${data}')`);
+      print(`toTitleCase('${data}')`);
       print(`toKebabCase('${data}')`);
       print(`hasValue('${data}')`);
 
       // DateTime
-      import { DateTime } from './dist';
-
       print(`DateTime.now().toISOString()`);
       print(`DateTime.now().toRFC2822()`);
 
       // Hashing & Encoding Example
-      import { HexToBytes, SHA256Hash } from './dist';
-
       print(`new HexToBytes().convert('FF')`);
       print(`new SHA256Hash().hash('${data}')`);
 
       // ValueObject
-      import { ValueObject } from './dist';
-
       class TextValueObject extends ValueObject {}
-
-      print(`TextValueObject.from('${data}')`);
-
       // note as javascript does not support generics yet, we can simply use the default behavior
       class NumberValueObject extends ValueObject {}
 
+      print(`TextValueObject.from('${data}')`);
       print(`NumberValueObject.from(123)`);
+
+      // Random Generators
+      print(`randomBigInt()`);
+      print(`randomInt()`);
+      print(`randomHex()`);
+      print(`randomId()`);
+      print(`randomBaseN(2)`);
+      print(`randomUUIDv4()`);
     </script>
   </body>
 </html>
