@@ -13,6 +13,18 @@
 $ npm install @sohailalam2/abu
 ```
 
+## ☝️ Minimum Requirements
+
+### NodeJs > v16
+
+Abu uses the `crypto` module and specifically the `crypto.webcrypto` object for its random number generation.
+This is only available on Node v16+.
+
+### Browsers
+
+- All modern browsers
+- NOT Internet Explorer
+
 ## 📢 Features
 
 ### Abu 🐒 is smart and shakes trees!
