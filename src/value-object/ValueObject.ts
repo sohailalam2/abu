@@ -1,6 +1,6 @@
 import { Serializable } from '@/data/Serializable';
 import { Class, ValueObjectType } from '@/utils/types';
-import { debug, deserialize, deserializeValueObject, hasValue, serialize } from '@/utils/helper';
+import { deserialize, deserializeValueObject, hasValue, serialize } from '@/utils/helper';
 
 import {
   ObjectCanNotBeConvertedToValueObject,
@@ -55,7 +55,6 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
   public validate() {
     const { name } = this.constructor;
 
-    debug('[validate]');
     if (this.value === null || typeof this.value === 'undefined') {
       throw new ValueObjectCanNotBeNullException(name);
     }

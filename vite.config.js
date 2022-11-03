@@ -49,6 +49,7 @@ export default defineConfig(({ mode }) => {
       'import.meta.vitest': 'undefined',
       __LIB_NAME__: JSON.stringify(env.npm_package_name),
       __LIB_VERSION__: JSON.stringify(env.npm_package_version),
+      __ENVIRONMENT__: JSON.stringify(env.NODE_ENV),
     },
     resolve: { alias: { '@': resolve(__dirname, 'src') }, mainFields: ['browser', 'module', 'jsnext:main', 'jsnext'] },
     server: { watch: { usePolling: true } },
