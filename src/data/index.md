@@ -1,14 +1,16 @@
 # Data
 
+[[toc]]
+
 ## Serializable Interface
 
 This interface exposes two method declaration that any class can implement to provide serialization and deserialization support
 
 ```ts
 interface Serializable<T> {
-  toString(): string;
+  serialize(): string;
 
-  valueOf(): T;
+  deserialize(data: string): T;
 }
 ```
 
@@ -20,11 +22,11 @@ This is an abstract class that can be used to create some quick and simple excep
 
 ```ts
 abstract class Exception<T = string> extends Error implements Serializable<T> {
-  public valueOf(): T {
+  serialize(): string {
     // ...
   }
 
-  public toString(): string {
+  deserialize(data: string): T {
     // ...
   }
 }

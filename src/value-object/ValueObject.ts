@@ -18,6 +18,7 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
   // Constructor is made public due to type constraints limitations
   // DO NOT instantiate the object directly, use the factory method(s) instead
   public constructor(public readonly value: T) {
+    Object.freeze(value);
     this.validate();
   }
 
@@ -78,11 +79,11 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
     }
   }
 
-  public toString(): string {
-    return serialize(this.value);
+  deserialize(data: string): T {
+    return deserialize<T>(data);
   }
 
-  public valueOf(): T {
-    return deserialize<T>(this.toString());
+  serialize(): string {
+    return serialize(this.value);
   }
 }

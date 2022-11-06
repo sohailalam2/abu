@@ -1,5 +1,7 @@
 # Random ID Generators
 
+[[toc]]
+
 These functions can be used to generate a random id in various format.
 
 ## Random UUID v4

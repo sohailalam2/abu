@@ -26,11 +26,11 @@ export abstract class Exception<T = string> extends Error implements Serializabl
     );
   }
 
-  public valueOf(): T {
-    return deserialize<T>(this.toString());
+  deserialize(data: string): T {
+    return deserialize<T>(data);
   }
 
-  public toString(): string {
+  serialize(): string {
     return serialize(this.data);
   }
 }

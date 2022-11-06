@@ -1,5 +1,7 @@
 # Numbers
 
+[[toc]]
+
 This contains a few helper functions to convert number from one base to another
 
 ## baseAtoB

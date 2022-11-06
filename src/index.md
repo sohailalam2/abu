@@ -7,6 +7,12 @@
   <h5>Your minimalistic helpful sidekick for all typescript projects :)</h5>
 </section>
 
+[[toc]]
+
+## 🤔 Frequently Asked Questions
+
+See [FAQ](./FAQ.md)
+
 ## 💻 Installation
 
 ```bash

@@ -1,5 +1,7 @@
 # Value Objects
 
+[[toc]]
+
 ## Introduction
 
 As [Wikipedia](https://en.wikipedia.org/wiki/Value_object) puts it
@@ -108,7 +110,7 @@ class MySimpleValueObject extends ValueObject {}
 const myVal = MySimpleValueObject.fromObject({ value: 'This is my value' });
 
 // this works fine
-console.log(myVal.valueOf());
+console.log(myVal.value);
 ```
 
 However, if the data can not be converted to a ValueObject then an `ObjectCanNotBeConvertedToValueObject` is thrown
@@ -135,5 +137,5 @@ const myValue = MySimpleValueObject.fromObject({ value: 1000 }); //‼️⁉️
 // myVal is successfully created
 
 // The following test fails
-expect(myValue.valueOf()).toEqual('1000'); // ❌ 👺
+expect(myValue.value).toEqual('1000'); // ❌ 👺
 ```

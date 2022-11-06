@@ -148,147 +148,147 @@ describe('helper utility', () => {
   // serialize()
   describe('serialize()', () => {
     it('can serialize an undefined value', () => {
-      const value = serialize(undefined);
+      const result = serialize(undefined);
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('undefined');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('undefined');
     });
 
     it('can serialize a null value', () => {
-      const value = serialize(null);
+      const result = serialize(null);
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('null');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('null');
     });
 
     it('can serialize a string value', () => {
-      const value = serialize('Hello World!');
+      const result = serialize('Hello World!');
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('Hello World!');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('Hello World!');
     });
 
     it('can serialize a number value', () => {
-      const value = serialize(10);
+      const result = serialize(10);
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('10');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('10');
     });
 
     it('can serialize a boolean value', () => {
-      const value = serialize(true);
+      const result = serialize(true);
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('true');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('true');
     });
 
     it('can serialize a BigInt value', () => {
       const bInt = 78099864177253771992779766288266836166272662n;
-      const value = serialize(BigInt(bInt));
+      const result = serialize(BigInt(bInt));
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual(bInt.toString());
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual(bInt.toString());
     });
 
     it('can serialize a Symbol value', () => {
-      const value = serialize(Symbol.for('Hello'));
+      const result = serialize(Symbol.for('Hello'));
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('Symbol(Hello)');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('Symbol(Hello)');
     });
 
     it('can serialize an object', () => {
-      const value = serialize({ hello: 'world' });
+      const result = serialize({ hello: 'world' });
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('{"hello":"world"}');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('{"hello":"world"}');
     });
 
     it('can serialize a date object', () => {
       const currentDate = new Date();
-      const value = serialize(currentDate);
+      const result = serialize(currentDate);
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual(currentDate.toISOString());
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual(currentDate.toISOString());
     });
   });
 
   // deserialize()
   describe('deserialize()', () => {
     it('can deserialize an undefined value', () => {
-      const value = deserialize('undefined');
+      const result = deserialize('undefined');
 
-      expect(value).toBeUndefined();
-      expect(typeof value).toEqual('undefined');
-      expect(value).toEqual(undefined);
+      expect(result).toBeUndefined();
+      expect(typeof result).toEqual('undefined');
+      expect(result).toEqual(undefined);
     });
 
     it('can deserialize a null value', () => {
-      const value = deserialize('null');
+      const result = deserialize('null');
 
-      expect(value).toBeNull();
-      expect(typeof value).toEqual('object');
-      expect(value).toEqual(null);
+      expect(result).toBeNull();
+      expect(typeof result).toEqual('object');
+      expect(result).toEqual(null);
     });
 
     it('can deserialize a number value', () => {
-      const value = deserialize('10');
+      const result = deserialize('10');
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('number');
-      expect(value).toEqual(10);
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('number');
+      expect(result).toEqual(10);
     });
 
     it('can deserialize a boolean value', () => {
-      const value = deserialize('true');
+      const result = deserialize('true');
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('boolean');
-      expect(value).toEqual(true);
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('boolean');
+      expect(result).toEqual(true);
     });
 
     it('can deserialize a BigInt value', () => {
       const bInt = '78099864177253771992779766288266836166272662';
-      const value = deserialize(bInt);
+      const result = deserialize(bInt);
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('bigint');
-      expect(value).toEqual(BigInt(bInt));
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('bigint');
+      expect(result).toEqual(BigInt(bInt));
     });
 
     it('can deserialize a Symbol value', () => {
       const sym = Symbol.for('Hello');
-      const value = deserialize('Symbol(Hello)');
+      const result = deserialize('Symbol(Hello)');
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('symbol');
-      expect((value as symbol).toString()).toEqual(sym.toString());
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('symbol');
+      expect((result as symbol).toString()).toEqual(sym.toString());
     });
 
     it('can deserialize an object', () => {
-      const value = deserialize('{"hello":"world"}');
+      const result = deserialize('{"hello":"world"}');
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('object');
-      expect(value).toEqual({ hello: 'world' });
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('object');
+      expect(result).toEqual({ hello: 'world' });
     });
 
     it('can deserialize a object date value', () => {
       const date = new Date();
-      const value = deserialize<Date>(JSON.stringify(date));
+      const result = deserialize<Date>(JSON.stringify(date));
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('object');
-      expect(value.toUTCString()).toEqual(date.toUTCString());
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('object');
+      expect(result.toUTCString()).toEqual(date.toUTCString());
     });
 
     it('can deserialize a value object to an instance', () => {
@@ -296,12 +296,12 @@ describe('helper utility', () => {
 
       const data = JSON.stringify(MyValue.from(true));
 
-      const value = deserializeValueObject<boolean, MyValue>(data, MyValue);
+      const result = deserializeValueObject<boolean, MyValue>(data, MyValue);
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('object');
-      expect(value).instanceof(MyValue);
-      expect(value.valueOf()).toEqual(true);
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('object');
+      expect(result).instanceof(MyValue);
+      expect(result.value).toEqual(true);
     });
 
     // FIXME: can deserialize a value object with correct data type to an instance
@@ -316,8 +316,8 @@ describe('helper utility', () => {
     //   expect(value).toBeDefined();
     //   expect(typeof value).toEqual('object');
     //   expect(value).instanceof(MyStringValue);
-    //   expect(value.valueOf()).not.toEqual(currentDate);
-    //   expect(value.valueOf()).toEqual(currentDate.toISOString());
+    //   expect(value.value).not.toEqual(currentDate);
+    //   expect(value.value).toEqual(currentDate.toISOString());
     // });
 
     it('can deserialize a complex object with nested value objects', () => {
@@ -332,29 +332,29 @@ describe('helper utility', () => {
         anotherVal: MyValue.from('This is another value'),
       };
 
-      const value = deserialize<ComplexValue>(JSON.stringify(data));
+      const result = deserialize<ComplexValue>(JSON.stringify(data));
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('object');
-      expect(MyValue.fromObject(value.myVal).valueOf()).toEqual(data.myVal.value);
-      expect(MyValue.fromObject(value.anotherVal).valueOf()).toEqual(data.anotherVal.value);
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('object');
+      expect(MyValue.fromObject(result.myVal).value).toEqual(data.myVal.value);
+      expect(MyValue.fromObject(result.anotherVal).value).toEqual(data.anotherVal.value);
     });
 
     it('can deserialize a string value', () => {
-      const value = deserialize('Hello World!');
+      const result = deserialize('Hello World!');
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('string');
-      expect(value).toEqual('Hello World!');
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('string');
+      expect(result).toEqual('Hello World!');
     });
 
     it('can deserialize a string date value', () => {
       const date = new Date();
-      const value = deserialize<Date>(date.toISOString());
+      const result = deserialize<Date>(date.toISOString());
 
-      expect(value).toBeDefined();
-      expect(typeof value).toEqual('object');
-      expect(value.toUTCString()).toEqual(date.toUTCString());
+      expect(result).toBeDefined();
+      expect(typeof result).toEqual('object');
+      expect(result.toUTCString()).toEqual(date.toUTCString());
     });
   });
 });

@@ -1,5 +1,7 @@
 # TransformerFunction
 
+[[toc]]
+
 ## Introduction
 
 Transformers are as the name suggests, ways to transform or convert one specific data structure/type to another.

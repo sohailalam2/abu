@@ -1,5 +1,7 @@
 # SHA256
 
+[[toc]]
+
 ## Introduction
 
 SHA-256 is a novel hash functions computed with eight 32-bit words. It is one of the algorithms that belong to the

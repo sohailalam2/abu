@@ -1,5 +1,7 @@
 # DateTime
 
+[[toc]]
+
 ## Introduction
 
 A simplified `DateTime` class with minimal functionalities powered by [Luxon](https://moment.github.io/luxon/)

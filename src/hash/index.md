@@ -1,5 +1,7 @@
 # HashFunction
 
+[[toc]]
+
 ## Introduction
 
 This interface provides a consistent way of hashing an input data and produce an output value.

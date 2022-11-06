@@ -25,13 +25,13 @@ describe('Exception class', () => {
     expect(exWithNumber.message).toEqual('Number Must Be Less Than 5: 10');
   });
 
-  it('toString()', () => {
-    expect(ex.toString()).toEqual('undefined');
-    expect(exWithNumber.toString()).toEqual('10');
+  it('serialize()', () => {
+    expect(ex.serialize()).toEqual('undefined');
+    expect(exWithNumber.serialize()).toEqual('10');
   });
 
-  it('valueOf', () => {
-    expect(ex.valueOf()).toEqual(undefined);
-    expect(exWithNumber.valueOf()).toEqual(10);
+  it('deserialize()', () => {
+    expect(ex.deserialize('undefined')).toEqual(undefined);
+    expect(exWithNumber.deserialize('10')).toEqual(10);
   });
 });

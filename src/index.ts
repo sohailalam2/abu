@@ -3,6 +3,7 @@ export * from './date-time';
 export * from './hash';
 export * from './id-generators';
 export * from './numbers';
+export * from './scheduler';
 export * from './transformers';
 export * from './utils';
 export * from './value-object';

@@ -1,5 +1,7 @@
 # Utilities
 
+[[toc]]
+
 ## debug()
 
 Can be used to turn on/off console logging for debugging purposes
@@ -174,7 +176,7 @@ const data = JSON.stringify(MyBooleanValue.from(true));
 // this works but in a wrongful manner
 // MyStringValue must contain a string but instead it now contains
 // a boolean value
-const value = deserializeValueObject<string, MyStringValue>(data, MyStringValue); //‼️⁉️
+const result = deserializeValueObject<string, MyStringValue>(data, MyStringValue); //‼️⁉️
 
-expect(value.valueOf()).toEqual('true'); // ❌ 👺
+expect(result.value).toEqual('true'); // ❌ 👺
 ```

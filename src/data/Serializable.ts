@@ -1,5 +1,5 @@
 export interface Serializable<T> {
-  toString(): string;
+  serialize(): string;
 
-  valueOf(): T;
+  deserialize(data: string): T;
 }
