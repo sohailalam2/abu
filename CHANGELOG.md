@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/sohailalam2/abu/compare/v0.2.1...v0.3.0) (2022-11-06)
+
+### Features
+
+- add scheduler, update value object, update docs ([6de7ea0](https://github.com/sohailalam2/abu/commit/6de7ea013a646669cb09e8540a8dac0c5a00a19c))
+
 ### [0.2.1](https://github.com/sohailalam2/abu/compare/v0.2.0...v0.2.1) (2022-11-03)
 
 ## [0.2.0](https://github.com/sohailalam2/abu/compare/v0.1.14...v0.2.0) (2022-11-01)
