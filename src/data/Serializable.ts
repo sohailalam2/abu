@@ -1,5 +1,7 @@
-export interface Serializable<T> {
+export interface Serializable {
   serialize(): string;
 
-  deserialize(data: string): T;
+  toJSON(): string;
+
+  toString(): string;
 }

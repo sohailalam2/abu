@@ -1,6 +1,6 @@
 import { Serializable } from '@/data/Serializable';
 import { Class, ValueObjectType } from '@/utils/types';
-import { deserialize, deserializeValueObject, hasValue, serialize } from '@/utils/helper';
+import { deserializeValueObject, hasValue, serialize } from '@/utils/helper';
 
 import {
   ObjectCanNotBeConvertedToValueObject,
@@ -13,7 +13,7 @@ import {
 // -----------------------------------------------------------------------------
 // Value Object
 // -----------------------------------------------------------------------------
-export abstract class ValueObject<T extends ValueObjectType = string> implements Serializable<T> {
+export abstract class ValueObject<T extends ValueObjectType = string> implements Serializable {
   // NOTE:
   // Constructor is made public due to type constraints limitations
   // DO NOT instantiate the object directly, use the factory method(s) instead
@@ -79,11 +79,15 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
     }
   }
 
-  deserialize(data: string): T {
-    return deserialize<T>(data);
-  }
-
   serialize(): string {
     return serialize(this.value);
+  }
+
+  toJSON(): string {
+    return JSON.stringify(this.value);
+  }
+
+  toString(): string {
+    return typeof this.value === 'object' ? this.serialize() : String(this.value);
   }
 }

@@ -30,8 +30,13 @@ describe('Exception class', () => {
     expect(exWithNumber.serialize()).toEqual('10');
   });
 
-  it('deserialize()', () => {
-    expect(ex.deserialize('undefined')).toEqual(undefined);
-    expect(exWithNumber.deserialize('10')).toEqual(10);
+  it('toJSON()', () => {
+    expect(ex.toJSON()).toEqual('');
+    expect(exWithNumber.toJSON()).toEqual('10');
+  });
+
+  it('toString()', () => {
+    expect(ex.toString()).toEqual('');
+    expect(exWithNumber.toString()).toEqual('10');
   });
 });

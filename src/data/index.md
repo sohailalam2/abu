@@ -4,13 +4,15 @@
 
 ## Serializable Interface
 
-This interface exposes two method declaration that any class can implement to provide serialization and deserialization support
+This interface exposes the following method declarations that any class can implement to provide serialization support
 
 ```ts
-interface Serializable<T> {
+interface Serializable {
   serialize(): string;
 
-  deserialize(data: string): T;
+  toJSON(): string;
+
+  toString(): string;
 }
 ```
 
@@ -21,12 +23,12 @@ This is an abstract class that can be used to create some quick and simple excep
 ### Class Signature
 
 ```ts
-abstract class Exception<T = string> extends Error implements Serializable<T> {
+abstract class Exception<T = string> extends Error implements Serializable {
   serialize(): string {
     // ...
   }
 
-  deserialize(data: string): T {
+  toJSON(): string {
     // ...
   }
 }

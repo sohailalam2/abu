@@ -24,7 +24,7 @@ The abstract class `ValueObject` helps us create these immutable objects in a mu
 ## Class Signature
 
 ```ts
-abstract class ValueObject<T extends ValueObjectType = string> {
+abstract class ValueObject<T extends ValueObjectType = string> implements Serializable {
   //
 }
 ```

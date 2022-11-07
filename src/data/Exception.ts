@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { Serializable } from './Serializable';
-import { deserialize, hasValue, serialize } from '@/utils/helper';
+import { hasValue, serialize } from '@/utils/helper';
 
-export abstract class Exception<T = string> extends Error implements Serializable<T> {
+export abstract class Exception<T = string> extends Error implements Serializable {
   public constructor(public readonly data?: T) {
     super();
     super.message = this.formatName() + (hasValue(data) ? `: ${data}` : '');
@@ -26,11 +26,15 @@ export abstract class Exception<T = string> extends Error implements Serializabl
     );
   }
 
-  deserialize(data: string): T {
-    return deserialize<T>(data);
-  }
-
   serialize(): string {
     return serialize(this.data);
+  }
+
+  toJSON(): string {
+    return JSON.stringify(this.data);
+  }
+
+  toString(): string {
+    return typeof this.data === 'object' ? this.serialize() : String(this.data);
   }
 }
