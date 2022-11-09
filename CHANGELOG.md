@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/sohailalam2/abu/compare/v0.3.0...v0.4.0) (2022-11-09)
+
+### Features
+
+- add serialization and deserialization of value object ([b6607d4](https://github.com/sohailalam2/abu/commit/b6607d44718fa6b182fbe9df0ba2326434920506))
+- remove deserialization() method from Serializable and add toJSON() ([711608b](https://github.com/sohailalam2/abu/commit/711608bd44cfec908a648e9bef560902ff709760))
+
 ## [0.3.0](https://github.com/sohailalam2/abu/compare/v0.2.1...v0.3.0) (2022-11-06)
 
 ### Features
