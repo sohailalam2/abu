@@ -1,9 +1,10 @@
 import { Serializable } from '@/data/Serializable';
 import { Class, ValueObjectType } from '@/utils/types';
-import { deserializeValueObject, hasValue, serialize } from '@/utils/helper';
+import { hasValue } from '@/utils/helper';
 
 import {
-  ObjectCanNotBeConvertedToValueObject,
+  ValueObjectDeserializationMapper,
+  ObjectCanNotBeConvertedToValueObjectException,
   ValueObjectCanNotBeEmptyException,
   ValueObjectCanNotBeNullException,
   ValueObjectIsInfiniteException,
@@ -41,11 +42,47 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
       const { value } = data;
 
       if (hasValue(value)) {
-        return deserializeValueObject<Type, K>(JSON.stringify({ value }), this);
+        return new this(value as Type) as K;
       }
     }
 
-    throw new ObjectCanNotBeConvertedToValueObject();
+    throw new ObjectCanNotBeConvertedToValueObjectException();
+  }
+
+  private static mapObjectValue(jsonObject: object, mapper: ValueObjectDeserializationMapper) {
+    Object.keys(mapper).forEach(key => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line security/detect-object-injection
+      const val = jsonObject[key];
+      // eslint-disable-next-line security/detect-object-injection
+      const mapperVal = mapper[key];
+
+      if (!mapperVal.prototype?.constructor) {
+        ValueObject.mapObjectValue(val, mapperVal as ValueObjectDeserializationMapper);
+      } else {
+        const Clazz = mapperVal as Class<unknown>;
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line no-param-reassign,security/detect-object-injection
+        jsonObject[key] = new Clazz(val);
+      }
+    });
+  }
+
+  public static deserialize<Type extends ValueObjectType = string, K = ValueObject<Type>>(
+    this: Class<K>,
+    value: string,
+    mapper?: ValueObjectDeserializationMapper,
+  ): K {
+    const parsed = JSON.parse(value);
+
+    if (mapper && typeof parsed === 'object' && parsed !== null) {
+      ValueObject.mapObjectValue(parsed, mapper);
+    }
+
+    return new this(parsed);
   }
 
   /**
@@ -79,15 +116,11 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
     }
   }
 
-  serialize(): string {
-    return serialize(this.value);
-  }
-
-  toJSON(): string {
-    return JSON.stringify(this.value);
+  toJSON(): object {
+    return this.value as object;
   }
 
   toString(): string {
-    return typeof this.value === 'object' ? this.serialize() : String(this.value);
+    return typeof this.value === 'object' ? JSON.stringify(this.toJSON()) : String(this.value);
   }
 }

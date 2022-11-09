@@ -1,17 +1,16 @@
-/* eslint-disable no-magic-numbers */
-import { beforeEach, describe, expect, it } from 'vitest';
+/* eslint-disable no-magic-numbers, @typescript-eslint/ban-ts-comment, no-underscore-dangle */
+import { afterEach, beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import {
+  debug,
   hasValue,
   toKebabCase,
   serialize,
   deserialize,
-  deserializeValueObject,
   toSnakeCase,
   toCamelCase,
   toTitleCase,
   toPascalCase,
 } from '@/utils/helper';
-import { ValueObject } from '@/value-object';
 
 describe('helper utility', () => {
   let testInputs: string[];
@@ -33,6 +32,43 @@ describe('helper utility', () => {
       'nancy_drew-_-',
       '-nancy_drew',
     ];
+  });
+
+  // debug()
+  describe('debug()', () => {
+    let consoleMock: Mock;
+
+    beforeEach(() => {
+      consoleMock = vi.fn();
+      vi.spyOn(console, 'log').mockImplementation(consoleMock);
+    });
+
+    afterEach(() => {
+      vi.resetAllMocks();
+    });
+
+    it('should debug log if __ABU_DEBUG__ is enabled', () => {
+      // @ts-ignore
+      global.__ABU_DEBUG__ = true;
+      debug('string');
+      expect(consoleMock).toHaveBeenCalledOnce();
+      expect(consoleMock).toHaveBeenCalledWith('string');
+    });
+
+    it('should debug log with multiple arguments', () => {
+      // @ts-ignore
+      global.__ABU_DEBUG__ = true;
+      debug('string', 'arg1', 'arg2');
+      expect(consoleMock).toHaveBeenCalledOnce();
+      expect(consoleMock).toHaveBeenCalledWith('string', 'arg1', 'arg2');
+    });
+
+    it('should not debug log if __ABU_DEBUG__ is disabled', () => {
+      // @ts-ignore
+      global.__ABU_DEBUG__ = undefined;
+      debug('string', 'arg1', 'arg2');
+      expect(consoleMock).not.toHaveBeenCalled();
+    });
   });
 
   // toSnakeCase()
@@ -291,70 +327,12 @@ describe('helper utility', () => {
       expect(result.toUTCString()).toEqual(date.toUTCString());
     });
 
-    it('can deserialize a value object to an instance', () => {
-      class MyValue extends ValueObject<boolean> {}
-
-      const data = JSON.stringify(MyValue.from(true));
-
-      const result = deserializeValueObject<boolean, MyValue>(data, MyValue);
-
-      expect(result).toBeDefined();
-      expect(typeof result).toEqual('object');
-      expect(result).instanceof(MyValue);
-      expect(result.value).toEqual(true);
-    });
-
-    // FIXME: can deserialize a value object with correct data type to an instance
-    // it('can deserialize a value object with correct data type to an instance', () => {
-    //   class MyDateValue extends ValueObject<Date> {}
-    //   class MyStringValue extends ValueObject {}
-    //
-    //   const currentDate = new Date();
-    //   const data = JSON.stringify(MyDateValue.from<Date>(currentDate));
-    //   const value = deserializeValueObject<string, MyStringValue>(data, MyStringValue);
-    //
-    //   expect(value).toBeDefined();
-    //   expect(typeof value).toEqual('object');
-    //   expect(value).instanceof(MyStringValue);
-    //   expect(value.value).not.toEqual(currentDate);
-    //   expect(value.value).toEqual(currentDate.toISOString());
-    // });
-
-    it('can deserialize a complex object with nested value objects', () => {
-      class MyValue extends ValueObject {}
-      interface ComplexValue {
-        myVal: MyValue;
-        anotherVal: MyValue;
-      }
-
-      const data: ComplexValue = {
-        myVal: MyValue.from('This is my value'),
-        anotherVal: MyValue.from('This is another value'),
-      };
-
-      const result = deserialize<ComplexValue>(JSON.stringify(data));
-
-      expect(result).toBeDefined();
-      expect(typeof result).toEqual('object');
-      expect(MyValue.fromObject(result.myVal).value).toEqual(data.myVal.value);
-      expect(MyValue.fromObject(result.anotherVal).value).toEqual(data.anotherVal.value);
-    });
-
     it('can deserialize a string value', () => {
       const result = deserialize('Hello World!');
 
       expect(result).toBeDefined();
       expect(typeof result).toEqual('string');
       expect(result).toEqual('Hello World!');
-    });
-
-    it('can deserialize a string date value', () => {
-      const date = new Date();
-      const result = deserialize<Date>(date.toISOString());
-
-      expect(result).toBeDefined();
-      expect(typeof result).toEqual('object');
-      expect(result.toUTCString()).toEqual(date.toUTCString());
     });
   });
 });

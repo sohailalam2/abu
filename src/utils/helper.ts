@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any,no-magic-numbers */
-import { Class, ValueObjectType } from '@/utils/types';
-import { ValueObject } from '@/value-object';
-
 export function debug(message?: any, ...optionalParams: any[]): void {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -135,14 +132,10 @@ export function deserialize<T>(value: string): T {
     const parsedJson = JSON.parse(value);
 
     // try parsing object as date
-    try {
-      const date = new Date(parsedJson);
+    const date = new Date(parsedJson);
 
-      date.toISOString();
-
+    if (!Number.isNaN(date.getDate())) {
       return date as T;
-    } catch (e) {
-      // ignore
     }
 
     return parsedJson as T;
@@ -151,25 +144,5 @@ export function deserialize<T>(value: string): T {
   }
 
   // --------- string
-  // try parsing string as date
-  try {
-    const date = new Date(value);
-
-    date.toISOString();
-
-    return date as T;
-  } catch (e) {
-    // ignore
-  }
-
   return String(value) as T;
-}
-
-export function deserializeValueObject<Type extends ValueObjectType = string, K = ValueObject<Type>>(
-  value: string,
-  Clazz: Class<K>,
-): K {
-  const parsedJson = JSON.parse(value);
-
-  return new Clazz(parsedJson.value as Type) as K;
 }

@@ -109,6 +109,10 @@
       "import": "./dist/numbers/index.mjs",
       "require": "./dist/numbers/index.js"
     },
+    "./scheduler": {
+      "import": "./dist/scheduler/index.mjs",
+      "require": "./dist/scheduler/index.js"
+    },
     "./transformers": {
       "import": "./dist/transformers/index.mjs",
       "require": "./dist/transformers/index.js"

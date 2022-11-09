@@ -135,48 +135,4 @@ The order of deserialization is as follows
 |    object     | `"{\"a\":10}"`                   | `{ a: 10 }`                        |
 |    string     | `"Hello World"`                  | `Hello World`                      |
 | date (object) | `"\"2022-10-30T13:37:25.086Z\""` | `Date("2022-10-30T13:37:25.086Z")` |
-| date (string) | `"2022-10-30T13:38:33.980Z"`     | `Date("2022-10-30T13:38:33.980Z")` |
-
-## deserializeValueObject()
-
-This method aims at converting a serialized string to a corresponding instance of a given value object.
-
-```ts
-function deserializeValueObject<Type, K = ValueObject<Type>>(value: string, Clazz: Class<K>): K {}
-```
-
-### Usage
-
-```ts
-class MyValue extends ValueObject<boolean> {}
-
-const data = JSON.stringify(MyValue.from(true));
-
-// this will deserialized a valueobject string and convert to an instance
-const valueObject = deserializeValueObject(data, MyValue);
-
-expect(value).instanceof(MyValue); // ✅
-```
-
-::: danger 👺 USE WITH EXTRA CAUTION!
-The `deserializeValueObject()` method can result in an inconsistent value object.
-
-It is not yet smart enough to determine the value type and hence can result in a type mismatch
-:::
-
-```ts
-class MyBooleanValue extends ValueObject<boolean> {}
-
-class MyStringValue extends ValueObject {}
-
-const data = JSON.stringify(MyBooleanValue.from(true));
-
-// NOTE here we are passing a serialized boolean value object but the
-// MyStringValue value object expects a string
-// this works but in a wrongful manner
-// MyStringValue must contain a string but instead it now contains
-// a boolean value
-const result = deserializeValueObject<string, MyStringValue>(data, MyStringValue); //‼️⁉️
-
-expect(result.value).toEqual('true'); // ❌ 👺
-```
+| date (string) | `"2022-10-30T13:38:33.980Z"`     | `"2022-10-30T13:38:33.980Z"`       |

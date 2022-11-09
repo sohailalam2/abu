@@ -1,21 +1,23 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// eslint-disable-next-line max-classes-per-file
+/* eslint-disable @typescript-eslint/ban-ts-comment, max-classes-per-file */
 import { beforeEach, describe, expect, it } from 'vitest';
 
+import { Exception } from '@/data';
+import { CustomObject } from '@/utils';
+
 import {
-  ObjectCanNotBeConvertedToValueObject,
+  ValueObjectDeserializationMapper,
   ValueObject,
   ValueObjectCanNotBeEmptyException,
   ValueObjectCanNotBeNullException,
   ValueObjectIsInfiniteException,
   ValueObjectIsNotANumberException,
+  ObjectCanNotBeConvertedToValueObjectException,
 } from './';
-
-import { Exception } from '@/data';
 
 describe('Exception class', () => {
   const VALUE_STRING = 'Hello World!';
   const VALUE_NUMBER = 100;
+  const VALUE_BOOLEAN = true;
   const VALUE_OBJECT = { name: 'Batman' };
   const VALUE_ARRAY_STRINGS = ['Batman', 'SpiderMan'];
   const VALUE_ARRAY_OBJECTS = [{ name: 'Batman' }, { name: 'SpiderMan' }];
@@ -46,6 +48,26 @@ describe('Exception class', () => {
     }
   }
 
+  interface NestedValueObject extends CustomObject {
+    nested: MyValueObjectWithNumber;
+  }
+
+  interface DeeplyNestedValueObject extends CustomObject {
+    deep: NestedValueObject;
+  }
+
+  interface ComplexValue extends CustomObject {
+    simpleString: string;
+    simpleNumber: number;
+    simpleBoolean: boolean;
+    simpleObject: { name: string };
+    simpleVO: MySimpleValueObject;
+    nestedVO: NestedValueObject;
+    deeplyNestedVO: DeeplyNestedValueObject;
+  }
+
+  class MyComplexValue extends ValueObject<ComplexValue> {}
+
   let val: ValueObject;
   let valWithNumber: ValueObject<number>;
   let valWithObject: ValueObject<{ [key: string]: string }>;
@@ -53,6 +75,8 @@ describe('Exception class', () => {
   let valWithArrayOfObjects: ValueObject<{ [key: string]: string }[]>;
   let valWithSymbol: ValueObject<symbol>;
   let valWithValidation: ValueObject;
+  let myComplexVO: MyComplexValue;
+  let myComplexVODeserializationMapper: ValueObjectDeserializationMapper;
 
   beforeEach(() => {
     val = MySimpleValueObject.from(VALUE_STRING);
@@ -62,6 +86,21 @@ describe('Exception class', () => {
     valWithArrayOfObjects = MyValueObjectWithArrayOfObjects.from(VALUE_ARRAY_OBJECTS);
     valWithSymbol = MyValueObjectWithSymbol.from(VALUE_SYMBOL);
     valWithValidation = MyValueObjectWithValidation.from(VALUE_VALIDATION);
+    myComplexVO = MyComplexValue.from<ComplexValue>({
+      simpleString: VALUE_STRING,
+      simpleNumber: VALUE_NUMBER,
+      simpleBoolean: VALUE_BOOLEAN,
+      simpleObject: { name: VALUE_STRING },
+      simpleVO: MySimpleValueObject.from(VALUE_STRING),
+      nestedVO: { nested: MyValueObjectWithNumber.from(VALUE_NUMBER) },
+      deeplyNestedVO: { deep: { nested: MyValueObjectWithNumber.from(VALUE_NUMBER) } },
+    });
+
+    myComplexVODeserializationMapper = {
+      simpleVO: MySimpleValueObject,
+      nestedVO: { nested: MyValueObjectWithNumber },
+      deeplyNestedVO: { deep: { nested: MyValueObjectWithNumber } },
+    };
   });
 
   it('value objects can be defined', () => {
@@ -111,16 +150,6 @@ describe('Exception class', () => {
     }).to.throw();
   });
 
-  it('value objects can serialize value', () => {
-    expect(typeof valWithNumber.serialize()).toEqual('string');
-
-    expect(valWithNumber.serialize()).toEqual(String(VALUE_NUMBER));
-
-    expect(valWithObject.serialize()).toEqual('{"name":"Batman"}');
-
-    expect(valWithSymbol.serialize()).toEqual(VALUE_SYMBOL.toString());
-  });
-
   it('value objects can run built in validations', () => {
     // @ts-ignore
     expect(() => MySimpleValueObject.from(undefined)).toThrow(ValueObjectCanNotBeNullException);
@@ -135,7 +164,7 @@ describe('Exception class', () => {
     expect(() => MyValueObjectWithValidation.from(VALUE_STRING)).toThrow(MyValueObjectWithValidationFailedException);
   });
 
-  it('can convert a deserialized object to a value object', () => {
+  it('can convert an object to a value object', () => {
     const value = 'This is my value';
 
     expect(MySimpleValueObject.fromObject({ value })).instanceof(MySimpleValueObject);
@@ -143,13 +172,45 @@ describe('Exception class', () => {
   });
 
   it('should fail to convert an object to value object if its a bad object', () => {
-    expect(() => MySimpleValueObject.fromObject({ invalid: true })).throws(ObjectCanNotBeConvertedToValueObject);
+    expect(() => MySimpleValueObject.fromObject({ invalid: true })).throws(
+      ObjectCanNotBeConvertedToValueObjectException,
+    );
   });
 
   // FIXME: should fail to convert an object to value object if value type is a mismatch
-  // it('should fail to convert an object to value object if value type is a mismatch', () => {
-  //   expect(MySimpleValueObject.fromObject({ value: 1000 })).instanceof(MySimpleValueObject);
-  //   expect(MySimpleValueObject.fromObject({ value: 1000 }).value).toEqual('1000');
-  //   // expect(() => MySimpleValueObject.fromObject({ value: 1000 })).throws(ObjectCanNotBeConvertedToValueObject);
-  // });
+  it.todo('should fail to convert an object to value object if value type is a mismatch', () => {
+    expect(MySimpleValueObject.fromObject({ value: 1000 })).instanceof(MySimpleValueObject);
+    expect(MySimpleValueObject.fromObject({ value: 1000 }).value).toEqual('1000');
+    // expect(() => MySimpleValueObject.fromObject({ value: 1000 })).throws(ObjectCanNotBeConvertedToValueObject);
+  });
+
+  it('value objects can toString() value', () => {
+    expect(typeof valWithNumber.toString()).toEqual('string');
+
+    expect(valWithNumber.toString()).toEqual(String(VALUE_NUMBER));
+
+    expect(valWithObject.toString()).toEqual('{"name":"Batman"}');
+
+    expect(valWithSymbol.toString()).toEqual(VALUE_SYMBOL.toString());
+  });
+
+  it('value objects can JSON.stringify() value', () => {
+    expect(typeof JSON.stringify(valWithNumber)).toEqual('string');
+
+    expect(JSON.stringify(valWithNumber)).toEqual(String(VALUE_NUMBER));
+
+    expect(JSON.stringify(valWithObject)).toEqual('{"name":"Batman"}');
+
+    expect(JSON.stringify(valWithSymbol)).toEqual(undefined);
+  });
+
+  it('can serialize & deserialize a complex object with nested value objects', () => {
+    const json = JSON.stringify(myComplexVO);
+    const result = MyComplexValue.deserialize(json, myComplexVODeserializationMapper);
+
+    expect(result).toBeDefined();
+    expect(result).toEqual(myComplexVO);
+    expect(result.value.simpleString).toEqual(VALUE_STRING);
+    expect(result.value.simpleVO.value).toEqual(VALUE_STRING);
+  });
 });

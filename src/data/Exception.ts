@@ -5,7 +5,7 @@ import { hasValue, serialize } from '@/utils/helper';
 export abstract class Exception<T = string> extends Error implements Serializable {
   public constructor(public readonly data?: T) {
     super();
-    super.message = this.formatName() + (hasValue(data) ? `: ${data}` : '');
+    super.message = this.formatName() + (hasValue(data) ? `: ${data?.toString()}` : '');
   }
 
   public formatName(): string {
@@ -30,8 +30,8 @@ export abstract class Exception<T = string> extends Error implements Serializabl
     return serialize(this.data);
   }
 
-  toJSON(): string {
-    return JSON.stringify(this.data);
+  toJSON(): object {
+    return this.data as object;
   }
 
   toString(): string {

@@ -1,7 +1,5 @@
 export interface Serializable {
-  serialize(): string;
-
-  toJSON(): string;
+  toJSON(): object;
 
   toString(): string;
 }

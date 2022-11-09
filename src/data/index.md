@@ -8,9 +8,7 @@ This interface exposes the following method declarations that any class can impl
 
 ```ts
 interface Serializable {
-  serialize(): string;
-
-  toJSON(): string;
+  toJSON(): object;
 
   toString(): string;
 }
@@ -23,15 +21,7 @@ This is an abstract class that can be used to create some quick and simple excep
 ### Class Signature
 
 ```ts
-abstract class Exception<T = string> extends Error implements Serializable {
-  serialize(): string {
-    // ...
-  }
-
-  toJSON(): string {
-    // ...
-  }
-}
+abstract class Exception<T = string> extends Error implements Serializable {}
 ```
 
 ### Usage
@@ -53,3 +43,25 @@ class ValueObjectCanNotBeEmptyException<T> extends Exception<T> {
 It simply takes the name of the class (in PascalCase), removes the word Exception from it and space separates the words.
 For example, the above class `ValueObjectCanNotBeEmptyException` will show a message `Value Object Can Not Be Empty`
 If a custom message value is passed then it will be appended to the class name message.
+
+::: danger Keep ClassName unmangled
+
+The message formatting looks at the `constructor.name` and converts it into space separated words.
+However, this only works when the class names are preserved during the build process.
+
+Example `vite.config.js`
+
+```js
+export default defineConfig(({ mode }) => {
+  return {
+    //...
+    build: {
+      minify: 'terser',
+      terserOptions: { keep_classnames: true },
+    },
+    //...
+  };
+});
+```
+
+:::

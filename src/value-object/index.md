@@ -139,3 +139,118 @@ const myValue = MySimpleValueObject.fromObject({ value: 1000 }); //‼️⁉️
 // The following test fails
 expect(myValue.value).toEqual('1000'); // ❌ 👺
 ```
+
+## Complex Value Object
+
+ValueObjects can not only hold simple value but also complex and nested value objects.
+
+```ts
+class MySimpleValueObject extends ValueObject {}
+
+interface NestedValueObject extends CustomObject {
+  nested: MySimpleValueObject;
+}
+
+interface DeeplyNestedValueObject extends CustomObject {
+  deep: NestedValueObject;
+}
+
+interface ComplexValue extends CustomObject {
+  simpleString: string;
+  simpleNumber: number;
+  simpleBoolean: boolean;
+  simpleObject: { name: string };
+  simpleVO: MySimpleValueObject;
+  nestedVO: NestedValueObject;
+  deeplyNestedVO: DeeplyNestedValueObject;
+}
+
+class MyComplexValue extends ValueObject<ComplexValue> {}
+
+const myValue = MyComplexValue.from<ComplexValue>({
+  simpleString: 'Hello World!',
+  simpleNumber: 100,
+  simpleBoolean: true,
+  simpleObject: { name: 'Bruce Wayne' },
+  simpleVO: MySimpleValueObject.from('Hello World!'),
+  nestedVO: { nested: MySimpleValueObject.from('Nested Value') },
+  deeplyNestedVO: { deep: { nested: MySimpleValueObject.from('Deeply Nested Value') } },
+});
+```
+
+## JSON Serialization
+
+When a Value Object is serialized to JSON, it will smartly flatten the structure by removing the internal `value`
+property.
+
+The above complex value object is serialized as follows:
+
+```json
+{
+  "simpleString": "Hello World!",
+  "simpleNumber": 100,
+  "simpleBoolean": true,
+  "simpleObject": {
+    "name": "Bruce Wayne"
+  },
+  "simpleVO": "Hello World!",
+  "nestedVO": {
+    "nested": "Nested Value"
+  },
+  "deeplyNestedVO": {
+    "deep": {
+      "nested": "Deeply Nested Value"
+    }
+  }
+}
+```
+
+## Deserialization
+
+A serialized value object can be reconstructed easily using the `ValueObject.deserialize()` method.
+
+The deserialization process may need some hints to convert nested value objects. This can be done by
+providing a `ValueObjectDeserializationMapper`.
+
+```ts
+interface ValueObjectDeserializationMapper {
+  [key: string]: Class<ValueObject<ValueObjectType>> | ValueObjectDeserializationMapper;
+}
+
+abstract class ValueObject implements Serializable {
+  deserialize<Type, K = ValueObject<Type>>(value: string, mapper?: ValueObjectDeserializationMapper): K {}
+}
+```
+
+Example:
+
+```ts
+const json = {
+  simpleString: 'Hello World!',
+  simpleNumber: 100,
+  simpleBoolean: true,
+  simpleObject: {
+    name: 'Bruce Wayne',
+  },
+  simpleVO: 'Hello World!',
+  nestedVO: {
+    nested: 'Nested Value',
+  },
+  deeplyNestedVO: {
+    deep: {
+      nested: 'Deeply Nested Value',
+    },
+  },
+};
+
+const mapper: ValueObjectDeserializationMapper = {
+  simpleVO: MySimpleValueObject,
+  nestedVO: { nested: MySimpleValueObject },
+  deeplyNestedVO: { deep: { nested: MySimpleValueObject } },
+};
+
+const valueObject = MyComplexValue.deserialize(json, mapper);
+
+expect(result.value.simpleString).toEqual('Hello World!');
+expect(result.value.simpleVO.value).toEqual('Hello World!');
+```

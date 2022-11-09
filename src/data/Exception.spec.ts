@@ -31,12 +31,12 @@ describe('Exception class', () => {
   });
 
   it('toJSON()', () => {
-    expect(ex.toJSON()).toEqual('');
-    expect(exWithNumber.toJSON()).toEqual('10');
+    expect(ex.toJSON()).toEqual(undefined);
+    expect(exWithNumber.toJSON()).toEqual(10);
   });
 
   it('toString()', () => {
-    expect(ex.toString()).toEqual('');
+    expect(ex.toString()).toEqual('undefined');
     expect(exWithNumber.toString()).toEqual('10');
   });
 });
