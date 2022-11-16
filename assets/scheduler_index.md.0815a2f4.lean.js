@@ -1,1 +1,0 @@
-import{_ as s,c as n,o as a,a as l}from"./app.cc5dde61.js";const u=JSON.parse('{"title":"Scheduler","description":"","frontmatter":{},"headers":[],"relativePath":"scheduler/index.md"}'),p={name:"scheduler/index.md"},e=l("",4),o=[e];function r(c,t,D,i,y,A){return a(),n("div",null,o)}const C=s(p,[["render",r]]);export{u as __pageData,C as default};
