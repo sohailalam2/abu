@@ -46,26 +46,26 @@
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",
-    "@types/luxon": "^3.0.2",
+    "@types/luxon": "^3.1.0",
     "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
     "@vitest/coverage-istanbul": "^0.24.5",
-    "eslint": "^8.26.0",
+    "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-security": "^1.5.0",
-    "husky": "^8.0.1",
+    "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "standard-version": "^9.5.0",
     "taze": "^0.8.3",
     "terser": "^5.15.1",
     "typescript": "^4.8.4",
-    "vite": "^3.2.2",
-    "vitepress": "^1.0.0-alpha.27",
+    "vite": "^3.2.3",
+    "vitepress": "^1.0.0-alpha.28",
     "vitest": "^0.24.5",
     "vue-tsc": "^1.0.9"
   },
@@ -89,41 +89,49 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./data": {
-      "import": "./dist/data/index.mjs",
-      "require": "./dist/data/index.js"
+    "./crypto": {
+      "import": "./dist/crypto/index.mjs",
+      "require": "./dist/crypto/index.js"
+    },
+    "./crypto/hashing": {
+      "import": "./dist/crypto/hashing/index.mjs",
+      "require": "./dist/crypto/hashing/index.js"
+    },
+    "./crypto/id-generators": {
+      "import": "./dist/crypto/id-generators/index.mjs",
+      "require": "./dist/crypto/id-generators/index.js"
+    },
+    "./data-helpers": {
+      "import": "./dist/data-helpers/index.mjs",
+      "require": "./dist/data-helpers/index.js"
+    },
+    "./data-helpers/conversion": {
+      "import": "./dist/data-helpers/conversion/index.mjs",
+      "require": "./dist/data-helpers/conversion/index.js"
+    },
+    "./data-helpers/transformers": {
+      "import": "./dist/data-helpers/transformers/index.mjs",
+      "require": "./dist/data-helpers/transformers/index.js"
+    },
+    "./data-helpers/value-object": {
+      "import": "./dist/data-helpers/value-object/index.mjs",
+      "require": "./dist/data-helpers/value-object/index.js"
+    },
+    "./data-helpers/value-object-message": {
+      "import": "./dist/data-helpers/value-object-message/index.mjs",
+      "require": "./dist/data-helpers/value-object-message/index.js"
     },
     "./date-time": {
       "import": "./dist/date-time/index.mjs",
       "require": "./dist/date-time/index.js"
     },
-    "./hash": {
-      "import": "./dist/hash/index.mjs",
-      "require": "./dist/hash/index.js"
-    },
-    "./id-generators": {
-      "import": "./dist/id-generators/index.mjs",
-      "require": "./dist/id-generators/index.js"
-    },
-    "./numbers": {
-      "import": "./dist/numbers/index.mjs",
-      "require": "./dist/numbers/index.js"
-    },
-    "./scheduler": {
-      "import": "./dist/scheduler/index.mjs",
-      "require": "./dist/scheduler/index.js"
-    },
-    "./transformers": {
-      "import": "./dist/transformers/index.mjs",
-      "require": "./dist/transformers/index.js"
-    },
     "./utils": {
       "import": "./dist/utils/index.mjs",
       "require": "./dist/utils/index.js"
     },
-    "./value-object": {
-      "import": "./dist/value-object/index.mjs",
-      "require": "./dist/value-object/index.js"
+    "./utils/scheduler": {
+      "import": "./dist/utils/scheduler/index.mjs",
+      "require": "./dist/utils/scheduler/index.js"
     }
   },
   "husky": {

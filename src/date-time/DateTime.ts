@@ -1,5 +1,6 @@
 import { DateTime as Luxon } from 'luxon';
-import { Exception } from '@/data/Exception';
+import { Exception } from '@/data-helpers/Exception';
+import { Serializable } from '@/data-helpers';
 
 export interface Duration {
   years?: number;
@@ -15,7 +16,7 @@ export interface Duration {
 // -----------------------------------------------------------------------------
 // DateTime implementation
 // -----------------------------------------------------------------------------
-export class DateTime {
+export class DateTime implements Serializable {
   private readonly value: Luxon;
 
   private constructor(value: Luxon) {
@@ -140,6 +141,10 @@ export class DateTime {
    */
   public timestamp(): number {
     return this.value.toUTC().toMillis();
+  }
+
+  toJSON(): object {
+    return this.toISOString() as unknown as object;
   }
 }
 

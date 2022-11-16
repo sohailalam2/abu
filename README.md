@@ -1,7 +1,7 @@
 <section align="center">
   <br />
   <a href="https://sohailalam2" target="_blank" rel="noopener noreferrer">
-    <img width="180" src="./docs/logo.png" alt="Abu Logo">
+    <img width="180" src="docs/assets/logo.png" alt="Abu Logo">
   </a>
   <h1>Abu</h1>
   <h5>Your minimalistic helpful sidekick for all typescript projects :)</h5>
@@ -18,6 +18,16 @@
 
   </div>
 </section>
+
+## Features:
+
+### Abu 🐒 is smart and shakes trees 🍃
+
+Supports tree-shaking, so you only import what you need. Even if Abu get fat, you can stay slim 😃
+
+### Abu 🐵 is universal 🌍
+
+details: Works equally well in modern browsers as well as in NodeJs
 
 ## 💻 Installation
 
