@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/sohailalam2/abu/compare/v0.5.0...v0.5.1) (2022-12-07)
+
+### Features
+
+- remove luxon as dependency ([274511b](https://github.com/sohailalam2/abu/commit/274511bfcb2f78e5d421b5ddc5277cc89b87eab3))
+- use webcrypto for sha hashing ([708a460](https://github.com/sohailalam2/abu/commit/708a4603f5f48807a813386695349e304e0f6361))
+
 ## [0.5.0](https://github.com/sohailalam2/abu/compare/v0.4.0...v0.5.0) (2022-11-16)
 
 ## [0.4.0](https://github.com/sohailalam2/abu/compare/v0.3.0...v0.4.0) (2022-11-09)
