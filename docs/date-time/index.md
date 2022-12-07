@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A simplified `DateTime` class with minimal functionalities powered by [Luxon](https://moment.github.io/luxon/)
+A simplified `DateTime` class with minimal functionalities needed for most common use cases.
 
 ## Create a new `DateTime` object
 
