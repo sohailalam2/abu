@@ -1,7 +1,7 @@
 import { DateTime, InvalidDateTimeException } from './';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-describe.only('DateTime utility class', () => {
+describe('DateTime utility class', () => {
   const VALUE_10 = 10;
   const TIME_DIFF_IN_MILLIS = 100;
   const ONE_DAY_IN_MILLIS = 86400000; // 24 * 60 * 60 * 1000
