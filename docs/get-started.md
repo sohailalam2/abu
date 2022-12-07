@@ -1,8 +1,5 @@
 <section align="center">
   <br />
-  <a href="https://sohailalam2" target="_blank" rel="noopener noreferrer">
-    <img width="180" src="./assets/logo.png" alt="Abu Logo">
-  </a>
   <h1>Abu</h1>
   <h5>Your minimalistic helpful sidekick for all typescript projects :)</h5>
   <br />
@@ -20,7 +17,7 @@ $ npm install @sohailalam2/abu
 
 ### NodeJs > v16
 
-Abu uses the `crypto` module and specifically the `crypto.webcrypto` object for its random number generation.
+Abu uses the `crypto` module and specifically the `crypto.webcrypto` object for the crypto module functionality.
 This is only available on Node v16+.
 
 ## Abu 🐵 is universal!
@@ -127,7 +124,7 @@ Unfortunately, many test environments do not provide an implementation for the s
 ```ts
 // in some spec.ts file
 
-import crypto from 'docs/crypto/index';
+import * as crypto from 'crypto';
 
 Object.defineProperty(globalThis, 'crypto', {
   value: { webcrypto: crypto.webcrypto },

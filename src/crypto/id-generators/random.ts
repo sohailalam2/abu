@@ -1,16 +1,12 @@
 /* eslint-disable no-magic-numbers, @typescript-eslint/ban-ts-comment */
-import { InvalidNumberBaseException } from '@/data-helpers/conversion/numbers';
 import { Exception } from '@/data-helpers/Exception';
+import { InvalidNumberBaseException } from '@/data-helpers/conversion/numbers';
+
+import { getWebCrypto } from '../webcrypto';
 
 export class IdGenerationMaxCharsOutOfBoundException extends Exception<number> {}
 
 const DEFAULT_CHARS = 6;
-
-function getWebCrypto() {
-  // @ts-ignore
-  // eslint-disable-next-line
-  return typeof global !== 'undefined' ? global.crypto.webcrypto : window.crypto || self.crypto;
-}
 
 function cryptographicallySafeRandom(largeVal = false): bigint | number {
   const array = largeVal ? new BigUint64Array(1) : new Uint32Array(1);

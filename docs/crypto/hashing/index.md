@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This interface provides a consistent way of hashing an input data and produce an output value.
+This interface provides a consistent way of hashing an input data and produce an output hash value.
 
 Optionally the `HashFunction#hash()` method can take a `config` argument
 

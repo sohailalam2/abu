@@ -1,4 +1,10 @@
 /* eslint-disable no-magic-numbers */
+// this setup is needed to expose webcrypto as a part of the global
+// as of Node v16+ this is readily available
+import crypto from 'crypto';
+Object.defineProperty(globalThis, 'crypto', { value: { webcrypto: crypto.webcrypto } });
+
+// Other Imports...
 import { describe, expect, it } from 'vitest';
 import {
   IdGenerationMaxCharsOutOfBoundException,
@@ -11,12 +17,6 @@ import {
 } from './index';
 
 import { InvalidNumberBaseException } from '@/data-helpers/conversion/numbers';
-
-// this setup is needed to expose webcrypto as a part of the global
-// as of Node v16+ this is readily available
-import crypto from 'crypto';
-
-Object.defineProperty(globalThis, 'crypto', { value: { webcrypto: crypto.webcrypto } });
 
 describe('random', () => {
   const DEFAULT_CHARS = 6;

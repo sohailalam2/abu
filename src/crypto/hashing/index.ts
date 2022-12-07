@@ -1,2 +1,4 @@
+export * from './AbstractHash';
 export * from './HashFunction';
-export * from './sha256';
+export * from './SHA256Hash';
+export * from './SHA512Hash';

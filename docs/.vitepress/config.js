@@ -37,7 +37,7 @@ export default defineConfig({
     nav,
     sidebar,
     socialLinks,
-    logo: '../logo.png',
+    logo: '/logo.png',
     outline: [2, 3],
     docFooter: {
       prev: null,
@@ -45,7 +45,7 @@ export default defineConfig({
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: `Copyright © 2020-${new Date().getFullYear()} <a href="https://github.com/sohailalam2">Sohail Alam</a>`,
+      copyright: `Copyright © 2022-${new Date().getFullYear()} <a href="https://github.com/sohailalam2">Sohail Alam</a>`,
     },
   },
   vite: {
