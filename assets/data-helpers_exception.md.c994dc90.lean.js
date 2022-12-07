@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,a as l}from"./app.57a3b10d.js";const m=JSON.parse('{"title":"Exception","description":"","frontmatter":{},"headers":[],"relativePath":"data-helpers/exception.md"}'),p={name:"data-helpers/exception.md"},e=l("",9),o=[e];function c(t,r,i,y,E,d){return n(),a("div",null,o)}const C=s(p,[["render",c]]);export{m as __pageData,C as default};
