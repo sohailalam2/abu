@@ -27,7 +27,7 @@ export class BlogUrl extends ValueObject {
     super.validate();
     if (!this.value.includes('/')) {
       // NOTE: this is just an example and not an ideal way to check for URLs
-      throw new ValueObjectCanNotBeNullException('Incorrect URL format');
+      throw new ValueObjectIsNotAnUrlException('Incorrect URL format');
     }
   }
 }
