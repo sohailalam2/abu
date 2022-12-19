@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as s,a as l}from"./app.ab06fbc4.js";const g=JSON.parse('{"title":"Serialization","description":"","frontmatter":{},"headers":[],"relativePath":"data-helpers/serialization.md"}'),a={name:"data-helpers/serialization.md"},n=l("",15),o=[n];function p(r,c,d,i,y,u){return s(),e("div",null,o)}const f=t(a,[["render",p]]);export{g as __pageData,f as default};

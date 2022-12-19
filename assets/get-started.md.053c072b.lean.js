@@ -1,1 +1,0 @@
-import{_ as s,c as n,o as a,a as l}from"./app.57a3b10d.js";const b=JSON.parse('{"title":"Frequently Asked Questions","description":"","frontmatter":{},"headers":[],"relativePath":"get-started.md"}'),p={name:"get-started.md"},o=l("",18),e=[o];function t(c,r,y,E,i,D){return a(),n("div",null,e)}const u=s(p,[["render",t]]);export{b as __pageData,u as default};
