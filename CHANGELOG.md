@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/sohailalam2/abu/compare/v0.5.1...v0.5.2) (2022-12-19)
+
+### Features
+
+- improve website branding ([805bb81](https://github.com/sohailalam2/abu/commit/805bb81339e98e4967ca164a796c1a9b3dc65c39))
+
 ### [0.5.1](https://github.com/sohailalam2/abu/compare/v0.5.0...v0.5.1) (2022-12-07)
 
 ### Features
