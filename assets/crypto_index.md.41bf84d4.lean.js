@@ -1,0 +1,1 @@
+import{_ as e,c as a,o as r,a as t}from"./app.1d4b18b8.js";const m=JSON.parse('{"title":"Crypto","description":"","frontmatter":{},"headers":[],"relativePath":"crypto/index.md"}'),o={name:"crypto/index.md"},s=t("",3),n=[s];function h(d,c,i,p,_,l){return r(),a("div",null,n)}const u=e(o,[["render",h]]);export{m as __pageData,u as default};
