@@ -56,13 +56,13 @@ jobs:
           cache: "npm"
       - name: Publish to NPMJS
         run: |
-          npm config set //registry.npmjs.org/:_authToken=NPM_TOKEN
+          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
           npm config set scope "@sohailalam2"
           npm config list
           npm publish --access public
         env:
           CI: true
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # -------------------------------------
       # Publish documentation to Github Pages
