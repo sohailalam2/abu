@@ -1,7 +1,14 @@
 {
+  "siteTitle": "Abu",
   "head": [
     ["meta", { "name": "theme-color", "content": "#3c8772" }],
     ["link", { "rel": "preconnect", "href": "https://fonts.gstatic.com", "crossorigin": "" }]
+  ],
+  "projects": [
+    {
+      "text": "Elemental Web",
+      "link": "https://sohailalam2.github.io/elemental-web"
+    }
   ],
   "socialLinks": [
     {

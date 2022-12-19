@@ -4,20 +4,19 @@ import { join } from 'path';
 import createNavigation from './navbar';
 import { name as title, description } from '../../package.json';
 
-const base = `/${title.split('/')[1]}`;
 const srcDir = join(__dirname, '../../docs');
 const outDir = join(__dirname, '../../dist/docs');
 const { nav, sidebar } = createNavigation(srcDir);
 
-import { head, socialLinks } from './seo.json';
+import { siteTitle, head, socialLinks } from './seo.json';
 
 export default defineConfig({
   title,
   description,
-  base,
   srcDir,
   outDir,
   head,
+  base: '/',
   lang: 'en-US',
   appearance: 'light',
   ignoreDeadLinks: true,
@@ -37,7 +36,8 @@ export default defineConfig({
     nav,
     sidebar,
     socialLinks,
-    logo: '/logo.png',
+    siteTitle,
+    logo: '/logo.svg',
     outline: [2, 3],
     docFooter: {
       prev: null,

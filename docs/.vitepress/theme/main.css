@@ -30,3 +30,9 @@ img.resizable-img {
   width: unset;
   height: unset;
 }
+
+img.image-src {
+  max-width: 100% !important;
+  top: 60% !important;
+  left: 55% !important;
+}

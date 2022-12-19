@@ -1,7 +1,10 @@
-<section align="center">
+<section>
   <br />
+  <a href="https://sohailalam2.github.io/abu/" target="_blank" rel="noopener noreferrer">
+    <img width="64" src="/logo.svg" alt="Abu Logo">
+  </a>
   <h1>Abu</h1>
-  <h5>Your minimalistic helpful sidekick for all typescript projects :)</h5>
+  <p>Your minimalistic helpful sidekick for all Javascript/Typescript projects 😍</p>
   <br />
 </section>
 
@@ -118,8 +121,10 @@ console.log(TestValueObject.from(data));
 > My tests are failing because of a cryptic error message:
 > `TypeError: Cannot read properties of undefined (reading 'webcrypto')`
 
-Abu uses 'webcrypto' implementation to generate random numbers that are then used by the [id-generators](./crypto/id-generators.md).
-Unfortunately, many test environments do not provide an implementation for the same. However, we can easily define it as follows:
+Abu uses 'webcrypto' implementation to generate random numbers that are then used by
+the [id-generators](./crypto/id-generators.md).
+Unfortunately, many test environments do not provide an implementation for the same. However, we can easily define it as
+follows:
 
 ```ts
 // in some spec.ts file

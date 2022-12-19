@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
 
       - name: Set node
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: "npm"
@@ -40,10 +40,10 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
 
       - name: Set node
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: "npm"
@@ -74,10 +74,10 @@ jobs:
     name: "Build&Test: node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
 
       - name: Set node version to ${{ matrix.node_version }}
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
           cache: "npm"

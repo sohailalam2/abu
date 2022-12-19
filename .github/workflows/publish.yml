@@ -32,7 +32,7 @@ jobs:
       # Publish to GitHub Package Registry
       # ----------------------------------
       - name: Setup for publishing to Github NPM Registry
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           registry-url: https://npm.pkg.github.com/
@@ -44,25 +44,25 @@ jobs:
           CI: true
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #      # -------------------------
-      #      # Publish to NPMJS Registry
-      #      # -------------------------
-      #      - name: Setup for publishing to NPM Registry
-      #        uses: actions/setup-node@master
-      #        with:
-      #          node-version: 16.x
-      #          registry-url: 'https://registry.npmjs.org/'
-      #          scope: "@sohailalam2"
-      #          cache: "npm"
-      #      - name: Publish to NPMJS
-      #        run: |
-      #          npm config set //registry.npmjs.org/:_authToken=NODE_AUTH_TOKEN
-      #          npm config set scope "@sohailalam2"
-      #          npm config list
-      #          npm publish --access public
-      #        env:
-      #          CI: true
-      #          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # -------------------------
+      # Publish to NPMJS Registry
+      # -------------------------
+      - name: Setup for publishing to NPM Registry
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          registry-url: "https://registry.npmjs.org/"
+          scope: "@sohailalam2"
+          cache: "npm"
+      - name: Publish to NPMJS
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=NPM_TOKEN
+          npm config set scope "@sohailalam2"
+          npm config list
+          npm publish --access public
+        env:
+          CI: true
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # -------------------------------------
       # Publish documentation to Github Pages

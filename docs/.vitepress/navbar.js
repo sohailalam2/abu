@@ -1,5 +1,8 @@
-import { readdirSync, lstatSync } from 'fs';
+import { lstatSync, readdirSync } from 'fs';
 import { join } from 'path';
+
+import { projects, socialLinks } from './seo.json';
+import { version } from '../../package.json';
 
 const directoriesToIgnore = ['.vitepress', 'assets', 'public', '__tests__', '__mocks__'];
 
@@ -84,6 +87,18 @@ function generateNav(root, files, directories) {
       link: relativePath(`${root}/${dir}/`),
     }),
   );
+
+  const { link: github } = socialLinks.filter(o => o.icon === 'github')[0];
+
+  nav.push({
+    text: `v${version}`,
+    items: [
+      { text: 'Release Notes', link: `${github}/blob/master/CHANGELOG.md` },
+      { text: 'Contributing', link: `${github}/blob/master/CONTRIBUTING.md` },
+    ],
+  });
+
+  nav.push({ text: 'Projects', items: projects });
 
   return nav;
 }

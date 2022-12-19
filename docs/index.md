@@ -9,7 +9,7 @@ hero:
   text: Your minimalistic sidekick 😍
   tagline: A collection of helper methods, classes for your Javascript/Typescript projects.
   image:
-    src: /logo.png
+    src: /home.svg
   actions:
     - theme: brand
       text: Get Started
