@@ -1,38 +1,9 @@
 {
   "siteTitle": "Abu",
-  "head": [
-    [
-      "meta",
-      {
-        "name": "theme-color",
-        "content": "#3c8772"
-      }
-    ],
-    [
-      "link",
-      {
-        "rel": "preconnect",
-        "href": "https://fonts.gstatic.com",
-        "crossorigin": ""
-      }
-    ],
-    [
-      "script",
-      {
-        "async": true,
-        "src": "https://www.googletagmanager.com/gtag/js?id=G-55GM2M2LVK"
-      }
-    ],
-    [
-      "script",
-      {},
-      "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}\ngtag('js',new Date());gtag('config','G-55GM2M2LVK')"
-    ]
-  ],
   "projects": [
     {
       "text": "Elemental Web",
-      "link": "https://sohailalam2.github.io/elemental-web"
+      "link": "https://elemental-web.sohailalam.in"
     }
   ],
   "socialLinks": [
@@ -44,5 +15,169 @@
       "link": "https://www.linkedin.com/in/alamsohail/",
       "icon": "linkedin"
     }
+  ],
+  "head": [
+    [
+      "script",
+      {
+        "async": true,
+        "src": "https://www.googletagmanager.com/gtag/js?id=G-55GM2M2LVK"
+      }
+    ],
+    [
+      "script",
+      {},
+      "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}\ngtag('js',new Date());gtag('config','G-55GM2M2LVK')"
+    ],
+    [
+      "meta",
+      {
+        "name": "author",
+        "content": "Sohail Alam"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "theme-color",
+        "content": "#3c8772"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "msapplication-TileColor",
+        "content": "#da532c"
+      }
+    ],
+    [
+      "meta",
+      {
+        "property": "og:title",
+        "content": "Abu"
+      }
+    ],
+    [
+      "meta",
+      {
+        "property": "og:description",
+        "content": "Your minimalistic helpful sidekick for all typescript projects :)"
+      }
+    ],
+    [
+      "meta",
+      {
+        "property": "og:url",
+        "content": "https://abu.sohailalam.in"
+      }
+    ],
+    [
+      "meta",
+      {
+        "property": "og:image",
+        "content": "https://abu.sohailalam.in/logo.svg"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "twitter:title",
+        "content": "Abu"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "twitter:description",
+        "content": "Your minimalistic helpful sidekick for all typescript projects :)"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "twitter:image",
+        "content": "https://abu.sohailalam.in/logo.svg"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "twitter:card",
+        "content": "summary_large_image"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "keywords",
+        "content": "abu, node, browser, universal, crypto, hashing, sha256, sha512, id generators, random id, bytes to string, hex to bytes, date, date-time, exception, value object, serialization, deserialization"
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "preconnect",
+        "href": "https://fonts.gstatic.com",
+        "crossorigin": ""
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "icon",
+        "href": "/logo.svg",
+        "type": "image/svg+xml"
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "manifest",
+        "href": "/favicon/site.webmanifest"
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "mask-icon",
+        "href": "/safari-pinned-tab.svg",
+        "color": "#5bbad5"
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "apple-touch-icon",
+        "href": "/favicon/apple-touch-icon.png",
+        "sizes": "180x180"
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "icon",
+        "type": "image/png",
+        "href": "/favicon/favicon-32x32.png",
+        "sizes": "32x32"
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "icon",
+        "type": "image/png",
+        "href": "/favicon/favicon-16x16.png",
+        "sizes": "16x16"
+      }
+    ],
+    [
+      "link",
+      {
+        "rel": "alternate icon",
+        "href": "/favicon/favicon-16x16.png",
+        "type": "image/png",
+        "sizes": "16x16"
+      }
+    ]
   ]
 }
