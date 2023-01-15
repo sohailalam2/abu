@@ -41,7 +41,7 @@ export class InvalidMessageVersionException extends Exception<number> {}
 
 export class MessageVersion extends ValueObject<number> {
   public static first(): MessageVersion {
-    return MessageVersion.from(MIN_VERSION_NUMBER);
+    return MessageVersion.from<number>(MIN_VERSION_NUMBER);
   }
 
   validate() {

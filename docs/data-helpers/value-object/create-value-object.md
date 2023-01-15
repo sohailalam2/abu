@@ -7,7 +7,7 @@
 // note that there is no need to let the complier know that its a string
 export class BlogTitle extends ValueObject {}
 
-const title = BlogTitle.from('This is a blog about amazing value objects');
+const title = BlogTitle.from<string>('This is a blog about amazing value objects');
 ```
 
 ## Encapsulate a primitive
@@ -16,7 +16,7 @@ const title = BlogTitle.from('This is a blog about amazing value objects');
 // here BlogLikeCount will encapsulate a number value
 export class BlogLikeCount extends ValueObject<number> {}
 
-const likes = BlogLikeCount.from(10);
+const likes = BlogLikeCount.from<number>(10);
 ```
 
 ## Add custom validation
@@ -48,7 +48,7 @@ that can be used to instantiate a new value object instance.
 ```ts
 class MyValueObjectWithNumber extends ValueObject<number> {}
 
-const hundred = MyValueObjectWithNumber.from(100);
+const hundred = MyValueObjectWithNumber.from<number>(100);
 ```
 
 ## ValueObject.fromObject()
@@ -127,8 +127,8 @@ const myValue = MyComplexValue.from<ComplexValue>({
   simpleNumber: 100,
   simpleBoolean: true,
   simpleObject: { name: 'Bruce Wayne' },
-  simpleVO: MySimpleValueObject.from('Hello World!'),
-  nestedVO: { nested: MySimpleValueObject.from('Nested Value') },
-  deeplyNestedVO: { deep: { nested: MySimpleValueObject.from('Deeply Nested Value') } },
+  simpleVO: MySimpleValueObject.from<string>('Hello World!'),
+  nestedVO: { nested: MySimpleValueObject.from<string>('Nested Value') },
+  deeplyNestedVO: { deep: { nested: MySimpleValueObject.from<string>('Deeply Nested Value') } },
 });
 ```

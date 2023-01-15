@@ -28,21 +28,22 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
    *
    * @param value
    */
-  public static from<Type extends ValueObjectType = string, K = ValueObject<Type>>(this: Class<K>, value: Type): K {
+  public static from<Type extends ValueObjectType = string, K extends ValueObject<Type> = ValueObject<Type>>(
+    this: Class<K>,
+    value: Type,
+  ): K {
     return new this(value);
   }
 
-  public static fromObject<Type extends ValueObjectType = string, K = ValueObject<Type>>(
+  public static fromObject<Type extends ValueObjectType = string, K extends ValueObject<Type> = ValueObject<Type>>(
     this: Class<K>,
-    data: unknown,
+    data: { value?: unknown; [key: string]: unknown },
   ): K {
     if (hasValue(data)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       const { value } = data;
 
       if (hasValue(value)) {
-        return new this(value as Type) as K;
+        return new this((<Type>value) as Type) as K;
       }
     }
 
@@ -73,7 +74,7 @@ export abstract class ValueObject<T extends ValueObjectType = string> implements
     });
   }
 
-  public static deserialize<Type extends ValueObjectType = string, K = ValueObject<Type>>(
+  public static deserialize<Type extends ValueObjectType = string, K extends ValueObject<Type> = ValueObject<Type>>(
     this: Class<K>,
     value: string,
     mapper?: ValueObjectDeserializationMapper,

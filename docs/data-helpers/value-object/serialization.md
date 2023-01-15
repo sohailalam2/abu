@@ -41,7 +41,12 @@ interface ValueObjectDeserializationMapper {
 }
 
 abstract class ValueObject implements Serializable {
-  deserialize<Type, K = ValueObject<Type>>(value: string, mapper?: ValueObjectDeserializationMapper): K {}
+  public static deserialize<Type extends ValueObjectType = string, K extends ValueObject<Type> = ValueObject<Type>>(
+    value: string,
+    mapper?: ValueObjectDeserializationMapper,
+  ): K {
+    // ....
+  }
 }
 ```
 
@@ -74,7 +79,7 @@ const mapper: ValueObjectDeserializationMapper = {
   deeplyNestedVO: { deep: { nested: MySimpleValueObject } },
 };
 
-const valueObject = MyComplexValue.deserialize(json, mapper);
+const valueObject = MyComplexValue.deserialize<ComplexValue>(json, mapper);
 
 expect(result.value.simpleString).toEqual('Hello World!');
 expect(result.value.simpleVO.value).toEqual('Hello World!');

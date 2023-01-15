@@ -26,7 +26,7 @@ describe('MessageMetadata', () => {
   });
 
   it('should deserialize metadata', () => {
-    const newMetadata = MessageMetadata.deserialize(JSON.stringify(data));
+    const newMetadata = MessageMetadata.deserialize<MessageMetadataData>(JSON.stringify(data));
 
     expect(newMetadata).toBeDefined();
     expect(newMetadata.value).toEqual(data);

@@ -79,21 +79,21 @@ describe('Exception class', () => {
   let myComplexVODeserializationMapper: ValueObjectDeserializationMapper;
 
   beforeEach(() => {
-    val = MySimpleValueObject.from(VALUE_STRING);
-    valWithNumber = MyValueObjectWithNumber.from(VALUE_NUMBER);
-    valWithObject = MyValueObjectWithObject.from(VALUE_OBJECT);
+    val = MySimpleValueObject.from<string>(VALUE_STRING);
+    valWithNumber = MyValueObjectWithNumber.from<number>(VALUE_NUMBER);
+    valWithObject = MyValueObjectWithObject.from<{ [key: string]: string }>(VALUE_OBJECT);
     valWithArrayOfStrings = MyValueObjectWithArrayOfStrings.from(VALUE_ARRAY_STRINGS);
-    valWithArrayOfObjects = MyValueObjectWithArrayOfObjects.from(VALUE_ARRAY_OBJECTS);
-    valWithSymbol = MyValueObjectWithSymbol.from(VALUE_SYMBOL);
-    valWithValidation = MyValueObjectWithValidation.from(VALUE_VALIDATION);
+    valWithArrayOfObjects = MyValueObjectWithArrayOfObjects.from<{ [key: string]: string }[]>(VALUE_ARRAY_OBJECTS);
+    valWithSymbol = MyValueObjectWithSymbol.from<symbol>(VALUE_SYMBOL);
+    valWithValidation = MyValueObjectWithValidation.from<string>(VALUE_VALIDATION);
     myComplexVO = MyComplexValue.from<ComplexValue>({
       simpleString: VALUE_STRING,
       simpleNumber: VALUE_NUMBER,
       simpleBoolean: VALUE_BOOLEAN,
       simpleObject: { name: VALUE_STRING },
-      simpleVO: MySimpleValueObject.from(VALUE_STRING),
-      nestedVO: { nested: MyValueObjectWithNumber.from(VALUE_NUMBER) },
-      deeplyNestedVO: { deep: { nested: MyValueObjectWithNumber.from(VALUE_NUMBER) } },
+      simpleVO: MySimpleValueObject.from<string>(VALUE_STRING),
+      nestedVO: { nested: MyValueObjectWithNumber.from<number>(VALUE_NUMBER) },
+      deeplyNestedVO: { deep: { nested: MyValueObjectWithNumber.from<number>(VALUE_NUMBER) } },
     });
 
     myComplexVODeserializationMapper = {
@@ -119,6 +119,7 @@ describe('Exception class', () => {
 
     expect(typeof valWithNumber.value).toEqual('number');
     expect(valWithNumber.value).toEqual(VALUE_NUMBER);
+    expect(valWithNumber.value).not.toEqual(String(VALUE_NUMBER));
 
     expect(typeof valWithObject.value).toEqual('object');
     expect(valWithObject.value).toEqual(VALUE_OBJECT);
@@ -155,13 +156,15 @@ describe('Exception class', () => {
     expect(() => MySimpleValueObject.from(undefined)).toThrow(ValueObjectCanNotBeNullException);
     // @ts-ignore
     expect(() => MySimpleValueObject.from(null)).toThrow(ValueObjectCanNotBeNullException);
-    expect(() => MySimpleValueObject.from('')).toThrow(ValueObjectCanNotBeEmptyException);
+    expect(() => MySimpleValueObject.from<string>('')).toThrow(ValueObjectCanNotBeEmptyException);
     expect(() => MyValueObjectWithNumber.from(Number('123ABC'))).toThrow(ValueObjectIsNotANumberException);
     expect(() => MyValueObjectWithNumber.from(Number.POSITIVE_INFINITY)).toThrow(ValueObjectIsInfiniteException);
   });
 
   it('value objects can run custom validation', () => {
-    expect(() => MyValueObjectWithValidation.from(VALUE_STRING)).toThrow(MyValueObjectWithValidationFailedException);
+    expect(() => MyValueObjectWithValidation.from<string>(VALUE_STRING)).toThrow(
+      MyValueObjectWithValidationFailedException,
+    );
   });
 
   it('can convert an object to a value object', () => {
@@ -179,9 +182,12 @@ describe('Exception class', () => {
 
   // FIXME: should fail to convert an object to value object if value type is a mismatch
   it.todo('should fail to convert an object to value object if value type is a mismatch', () => {
-    expect(MySimpleValueObject.fromObject({ value: 1000 })).instanceof(MySimpleValueObject);
-    expect(MySimpleValueObject.fromObject({ value: 1000 }).value).toEqual('1000');
-    // expect(() => MySimpleValueObject.fromObject({ value: 1000 })).throws(ObjectCanNotBeConvertedToValueObject);
+    const value = 1000;
+    let vo: MySimpleValueObject;
+
+    expect((vo = MySimpleValueObject.fromObject({ value }))).instanceof(MySimpleValueObject);
+    expect(vo.value).toEqual(String(value));
+    expect(vo.value).not.toEqual(value);
   });
 
   it('value objects can toString() value', () => {
@@ -206,7 +212,7 @@ describe('Exception class', () => {
 
   it('can serialize & deserialize a complex object with nested value objects', () => {
     const json = JSON.stringify(myComplexVO);
-    const result = MyComplexValue.deserialize(json, myComplexVODeserializationMapper);
+    const result = MyComplexValue.deserialize<ComplexValue>(json, myComplexVODeserializationMapper);
 
     expect(result).toBeDefined();
     expect(result).toEqual(myComplexVO);

@@ -22,21 +22,23 @@ describe('Message', () => {
   const environment = 'test';
   const version = 1;
   const payload = 'Some Payload';
-  const type = MessageType.from(MessageTypeEnum.EVENT);
-  const messageName = MessageName.from('name');
-  const source = MessageSource.from('source');
+  const type = MessageType.from<MessageTypeEnum>(MessageTypeEnum.EVENT);
+  const messageName = MessageName.from<string>('name');
+  const source = MessageSource.from<string>('source');
   const headers = MessageHeaders.with(messageName, source);
   const metadata = MessageMetadata.from<MessageMetadataData>({ environment, version });
 
   describe('MessageType', () => {
     it('should create MessageType from valid enum values', () => {
-      expect(MessageType.from(MessageTypeEnum.EVENT)).toBeDefined();
-      expect(MessageType.from(MessageTypeEnum.COMMAND)).toBeDefined();
-      expect(MessageType.from(MessageTypeEnum.QUERY)).toBeDefined();
+      expect(MessageType.from<MessageTypeEnum>(MessageTypeEnum.EVENT)).toBeDefined();
+      expect(MessageType.from<MessageTypeEnum>(MessageTypeEnum.COMMAND)).toBeDefined();
+      expect(MessageType.from<MessageTypeEnum>(MessageTypeEnum.QUERY)).toBeDefined();
     });
 
     it('should throw InvalidMessageTypeException', () => {
-      expect(() => MessageType.from('Invalid')).toThrow(InvalidMessageTypeException);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(() => MessageType.from<string>('Invalid')).toThrow(InvalidMessageTypeException);
     });
   });
 

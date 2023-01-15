@@ -1,6 +1,6 @@
 <section>
   <br />
-  <a href="https://sohailalam2.github.io/abu/" target="_blank" rel="noopener noreferrer">
+  <a href="https://abu.sohailalam.in/" target="_blank" rel="noopener noreferrer">
     <img width="64" src="/logo.svg" alt="Abu Logo">
   </a>
   <h1>Abu</h1>

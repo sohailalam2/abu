@@ -21,8 +21,8 @@ Object.defineProperty(globalThis, 'crypto', { value: { webcrypto: crypto.webcryp
 
 describe('MessageHeader', () => {
   const messageId = MessageId.generate();
-  const messageName = MessageName.from('AwesomeName');
-  const source = MessageSource.from('AwesomeSource');
+  const messageName = MessageName.from<string>('AwesomeName');
+  const source = MessageSource.from<string>('AwesomeSource');
   let data: MessageHeadersData;
   let headers: MessageHeaders;
 
@@ -33,7 +33,7 @@ describe('MessageHeader', () => {
 
   it('should throw InvalidMessageVersionException', () => {
     // eslint-disable-next-line no-magic-numbers
-    expect(() => MessageVersion.from(0)).toThrow(InvalidMessageVersionException);
+    expect(() => MessageVersion.from<number>(0)).toThrow(InvalidMessageVersionException);
   });
 
   it('should create a new object with messageName, source', () => {
@@ -55,7 +55,7 @@ describe('MessageHeader', () => {
       messageName,
       source,
       MessageSourceId.generate(),
-      MessageDestination.from('destination'),
+      MessageDestination.from<string>('destination'),
     );
 
     expect(obj).toBeDefined();
@@ -67,7 +67,7 @@ describe('MessageHeader', () => {
       messageName,
       source,
       MessageSourceId.generate(),
-      MessageDestination.from('destination'),
+      MessageDestination.from<string>('destination'),
       MessageVersion.first(),
     );
 
@@ -80,7 +80,7 @@ describe('MessageHeader', () => {
       messageName,
       source,
       MessageSourceId.generate(),
-      MessageDestination.from('destination'),
+      MessageDestination.from<string>('destination'),
       MessageVersion.first(),
       MessageCorrelationId.generate(),
     );
@@ -113,7 +113,7 @@ describe('MessageHeader', () => {
   });
 
   it('should deserialize headers', () => {
-    const newHeaders = MessageHeaders.deserialize(JSON.stringify(data), {
+    const newHeaders = MessageHeaders.deserialize<MessageHeadersData>(JSON.stringify(data), {
       messageId: MessageId,
       messageName: MessageName,
       source: MessageSource,
