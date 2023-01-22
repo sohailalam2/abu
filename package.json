@@ -109,9 +109,21 @@
       "import": "./dist/data-helpers/transformers/index.mjs",
       "require": "./dist/data-helpers/transformers/index.js"
     },
+    "./data-helpers/transformers/bytes-to-string": {
+      "import": "./dist/data-helpers/transformers/bytes-to-string/index.mjs",
+      "require": "./dist/data-helpers/transformers/bytes-to-string/index.js"
+    },
+    "./data-helpers/transformers/hex-to-bytes": {
+      "import": "./dist/data-helpers/transformers/hex-to-bytes/index.mjs",
+      "require": "./dist/data-helpers/transformers/hex-to-bytes/index.js"
+    },
     "./data-helpers/value-object": {
       "import": "./dist/data-helpers/value-object/index.mjs",
       "require": "./dist/data-helpers/value-object/index.js"
+    },
+    "./data-helpers/value-object/validators": {
+      "import": "./dist/data-helpers/value-object/validators/index.mjs",
+      "require": "./dist/data-helpers/value-object/validators/index.js"
     },
     "./data-helpers/value-object-message": {
       "import": "./dist/data-helpers/value-object-message/index.mjs",
