@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,a as l}from"./app.64fdbf73.js";const D=JSON.parse('{"title":"DateTime","description":"","frontmatter":{},"headers":[],"relativePath":"date-time/index.md"}'),p={name:"date-time/index.md"},o=l("",23),e=[o];function t(c,r,i,y,E,d){return n(),a("div",null,e)}const h=s(p,[["render",t]]);export{D as __pageData,h as default};
