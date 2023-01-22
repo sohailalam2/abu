@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/sohailalam2/abu/compare/v0.6.0...v0.6.1) (2023-01-22)
+
+### Features
+
+- add ValueObject validator decorators ([11f43f1](https://github.com/sohailalam2/abu/commit/11f43f1d845e37d029fe0c5446886d832b9cf544))
+
 ## [0.6.0](https://github.com/sohailalam2/abu/compare/v0.5.6...v0.6.0) (2023-01-15)
 
 ### Features
