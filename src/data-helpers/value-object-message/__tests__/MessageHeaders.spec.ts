@@ -11,7 +11,7 @@ import {
   MessageDestination,
   MessageCorrelationId,
   InvalidMessageVersionException,
-} from '@/data-helpers';
+} from '../MessageHeaders';
 
 // this setup is needed to expose webcrypto as a part of the global
 // as of Node v16+ this is readily available

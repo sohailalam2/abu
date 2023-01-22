@@ -3,14 +3,11 @@ import {
   InvalidMessageTypeException,
   Message,
   MessageHeaderMustContainNameAndSourceException,
-  MessageHeaders,
-  MessageMetadata,
-  MessageMetadataData,
-  MessageName,
-  MessageSource,
   MessageType,
   MessageTypeEnum,
-} from '@/data-helpers';
+} from '../Message';
+import { MessageMetadata, MessageMetadataData } from '../MessageMetadata';
+import { MessageHeaders, MessageName, MessageSource } from '../MessageHeaders';
 
 // this setup is needed to expose webcrypto as a part of the global
 // as of Node v16+ this is readily available

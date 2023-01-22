@@ -47,6 +47,7 @@ docs/
 src/
 test/
 dist/docs/
+**/*.spec.d.ts
 .editorconfig
 .eslintcache
 .eslintrc

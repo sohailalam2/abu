@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment, max-classes-per-file */
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { Exception } from '@/data-helpers';
+import { Exception, StringValidationFailedException, StringValidator } from '@/data-helpers';
 import { CustomObject } from '@/utils';
 
 import {
@@ -12,7 +12,13 @@ import {
   ValueObjectIsInfiniteException,
   ValueObjectIsNotANumberException,
   ObjectCanNotBeConvertedToValueObjectException,
+  NumberValidator,
+  NumberValidationFailedException,
 } from './index';
+import {
+  BooleanValidationFailedException,
+  BooleanValidator,
+} from '@/data-helpers/value-object/validators/BooleanValidator';
 
 describe('Exception class', () => {
   const VALUE_STRING = 'Hello World!';
@@ -218,5 +224,48 @@ describe('Exception class', () => {
     expect(result).toEqual(myComplexVO);
     expect(result.value.simpleString).toEqual(VALUE_STRING);
     expect(result.value.simpleVO.value).toEqual(VALUE_STRING);
+  });
+
+  it('should use class validator and throws BooleanValidator', () => {
+    const TEST_VALUE = true;
+
+    @BooleanValidator.isFalse() // throws because of this
+    class TestVO extends ValueObject<boolean> {}
+
+    expect(() => TestVO.from<boolean>(TEST_VALUE)).to.throw(BooleanValidationFailedException);
+  });
+
+  it('should use class validator and throws NumberValidationFailedException', () => {
+    const TEST_VALUE = 100;
+
+    @NumberValidator.isGreaterThan(TEST_VALUE) // throws because of this
+    @NumberValidator.isPositive()
+    @NumberValidator.isInteger()
+    class TestVO extends ValueObject<number> {}
+
+    expect(() => TestVO.from<number>(TEST_VALUE)).to.throw(NumberValidationFailedException);
+  });
+
+  it('should use class validator and throws StringValidationFailedException', () => {
+    const TEST_VALUE = 'Hello World!';
+
+    @StringValidator.matches(/^Hello, World!$/) // throws because of this
+    @StringValidator.endsWith('World!')
+    @StringValidator.startsWith('Hello')
+    class TestVO extends ValueObject<string> {}
+
+    expect(() => TestVO.from<string>(TEST_VALUE)).to.throw(StringValidationFailedException);
+  });
+
+  it('should use class validator and throws custom provided exception', () => {
+    const TEST_VALUE = 'Hello World!';
+
+    class MyCustomException extends Exception {}
+
+    @StringValidator.matches(/^Hello, World!$/, { exceptionType: MyCustomException })
+    class TestVO extends ValueObject<string> {}
+
+    expect(() => TestVO.from<string>(TEST_VALUE)).to.not.throw(StringValidationFailedException);
+    expect(() => TestVO.from<string>(TEST_VALUE)).to.throw(MyCustomException);
   });
 });

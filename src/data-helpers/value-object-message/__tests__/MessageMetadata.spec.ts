@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { MessageMetadata, MessageMetadataData } from '@/data-helpers/value-object-message/MessageMetadata';
+import { MessageMetadata, MessageMetadataData } from '../MessageMetadata';
 
 describe('MessageMetadata', () => {
   const environment = 'test';
